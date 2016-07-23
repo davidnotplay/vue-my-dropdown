@@ -11,7 +11,7 @@ Requisites
 
 Install
 -------
-You can add my-dropdown.min.js file, directly in the html code of your project. After you add the mixin in your Vue instance.
+You can add `my-dropdown.min.js` file, directly in the html code of your project. After you add the mixin in your Vue instance.
 
 ```javascript
 new Vue({
