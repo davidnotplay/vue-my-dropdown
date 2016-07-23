@@ -12,7 +12,7 @@ import myDropdownComponent from "./my-dropdown.vue";
 
 
 // Change version in package.json
-var version = '1.0.0';
+var version = '1.0.1';
 
 export {
 	myDropdownMixin as mixin,
