@@ -22,7 +22,7 @@ new Vue({
 Or you can install the library using npm
 
 ```
-$ npm insall vue-my-dropdown
+$ npm install vue-my-dropdown
 ```
 
 ```javascript
