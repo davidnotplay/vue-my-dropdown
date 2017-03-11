@@ -1,2 +1,4 @@
 node_modules
 gh-pages
+.vscode
+test/unit/coverage
