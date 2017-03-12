@@ -23,5 +23,8 @@ export default {
 }
 ```
 
+## Documentation
+[Official documentation](https://davidnotplay.github.io/vue-my-dropdown/)
+
 ## LICENSE
 The license is MIT. See LICENSE file to more info.
