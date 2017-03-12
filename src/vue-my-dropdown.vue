@@ -64,7 +64,6 @@ function setPosition($link, $dd, position, margin) {
       refPos.left = rect.left - $link.offsetParent.offsetLeft + window.pageXOffset
       refPos.top = rect.top - $link.offsetParent.offsetTop + window.pageYOffset
   }
-  console.log(refPos)
 
   cornerPos.left = refPos.left
   switch (p1) {
