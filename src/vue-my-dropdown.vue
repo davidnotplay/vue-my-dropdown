@@ -44,16 +44,27 @@ function setPosition($link, $dd, position, margin) {
   let origin = {}
   let [ p1, p2, p3, p4 ] = position
   let rect = $link.getBoundingClientRect()
-  let refPos = {
-    left: rect.left - $link.offsetParent.offsetLeft,
-    top: rect.top - $link.offsetParent.offsetTop }
+  let refPos = { top: 0, left: 0 }
   let dpSize = getSize($dd)
   let parentPosition = document.defaultView.getComputedStyle($link.offsetParent).position
 
-  if (parentPosition.toLowerCase() !== 'fixed') {
-    refPos.left += window.pageXOffset
-    refPos.top += window.pageYOffset
+  switch (parentPosition.toLowerCase()) {
+    case 'fixed':
+      refPos.left = rect.left - $link.offsetParent.offsetLeft
+      refPos.top = rect.top - $link.offsetParent.offsetTop
+      break
+
+    case 'absolute':
+      let parentRect = $link.offsetParent.getBoundingClientRect()
+      refPos.left = rect.left - parentRect.left
+      refPos.top = rect.top - parentRect.top
+      break
+
+    default:
+      refPos.left = rect.left - $link.offsetParent.offsetLeft + window.pageXOffset
+      refPos.top = rect.top - $link.offsetParent.offsetTop + window.pageYOffset
   }
+  console.log(refPos)
 
   cornerPos.left = refPos.left
   switch (p1) {
@@ -184,111 +195,90 @@ export default {
         this.close()
       }
     }
-  },
-
-  mounted() {
-    if (this.visible) {
-      this.open()
-    }
   }
 }
 </script>
 
-<style>
+<style lang="sass">
 
-.my-dropdown-dd{
-  position: absolute !important;
-  box-sizing: border-box !important;
-}
+$transition: transform .3s ease, opacity .3s ease
 
-.ani-none-leave-active, .ani-none-leave, .ani-none-enter-active, .ani-none-enter {
-  transition: none;
-}
+.my-dropdown-dd
+  position: absolute !important
+  box-sizing: border-box !important
 
-.ani-slide-leave-active {
-  transition: transform .3s ease, opacity .3s ease;
-  transform: scale(0, 0);
-  opacity: 0;
-}
+.ani-none-leave-active, .ani-none-leave, .ani-none-enter-active, .ani-none-enter
+  transition: none
 
-.ani-slide-leave {
-  transform: scale(1, 1);
-  opacity: 1;
-}
+.ani-slide-leave-active 
+  transition: $transition
+  transform: scale(0, 0)
+  opacity: 0
+
+.ani-slide-leave 
+  transform: scale(1, 1)
+  opacity: 1
 
 
-.ani-slide-enter-active {
-  transition: transform .3s ease, opacity .3s ease;
-  transform: scale(1, 1);
-  opacity: 1;
-}
+.ani-slide-enter-active 
+  transition: $transition
+  transform: scale(1, 1)
+  opacity: 1
 
 
-.ani-slide-enter {
-  transform: scale(0, 0);
-  opacity: 0;
-}
+.ani-slide-enter 
+  transform: scale(0, 0)
+  opacity: 0
 
 
-.ani-slide-x-leave-active {
-  transition: transform .3s ease, opacity .3s ease;
-  transform: scaleX(0);
-  opacity: 0;
-}
+.ani-slide-x-leave-active 
+  transition: $transition
+  transform: scaleX(0)
+  opacity: 0
 
-.ani-slide-x-leave {
-  transform: scaleX(1);
-  opacity: 1;
-}
+.ani-slide-x-leave
+  transform: scaleX(1)
+  opacity: 1
 
-.ani-slide-x-enter-active {
-  transition: transform .3s ease, opacity .3s ease;
-  transform: scaleX(1);
-  opacity: 1;
-}
+.ani-slide-x-enter-active
+  transition: $transition
+  transform: scaleX(1)
+  opacity: 1
 
-.ani-slide-x-enter{
-  transform: scaleX(0);
-  opacity: 0;
-}
+.ani-slide-x-enter
+  transform: scaleX(0)
+  opacity: 0
 
-.ani-slide-y-leave-active {
-  transition: transform .3s ease, opacity .3s ease;
-  transform: scaleY(0);
-  opacity: 0;
-}
+.ani-slide-y-leave-active 
+  transition: $transition
+  transform: scaleY(0)
+  opacity: 0
 
-.ani-slide-y-leave {
-  transform: scaleY(1);
-  opacity: 1;
-}
+.ani-slide-y-leave
+  transform: scaleY(1)
+  opacity: 1
 
-.ani-slide-y-enter-active {
-  transition: transform .3s ease, opacity .3s ease;
-  transform: scaleY(1);
-  opacity: 1;
-}
+.ani-slide-y-enter-active
+  transition: $transition
+  transform: scaleY(1)
+  opacity: 1
 
-.ani-slide-y-enter {
-  transform: scaleY(0);
-  opacity: 0;
-}
+.ani-slide-y-enter
+  transform: scaleY(0)
+  opacity: 0
 
-.ani-fade-leave-active {
-  transition: transform .3s ease, opacity .3s ease;
-  opacity: 0;
-}
+.ani-fade-leave-active
+  transition: $transition
+  opacity: 0
 
-.ani-fade-leave {
-  opacity: 1;
-}
+.ani-fade-leave
+  opacity: 1
 
-.ani-fade-enter-active {
-  transition: transform .3s ease, opacity .3s ease;
-  opacity: 1;
-}
+.ani-fade-enter-active
+  transition: $transition
+  opacity: 1
 
-.ani-fade-enter {
- opacity: 0;
-}
+.ani-fade-enter
+ opacity: 0
+
 </style>
