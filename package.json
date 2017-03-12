@@ -1,6 +1,6 @@
 {
   "name": "vue-my-dropdown",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Dropdown component to vuejs",
   "author": "David Casado Martínez @davidnotplay <dcasadomartinez@gmail.com>",
   "license": "MIT",

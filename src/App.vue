@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+    <dropdown :visible="visible" @clickOut="visible = false">
+      <span @click="visible = !visible" class="click-here">Click here</span>
+      <div class="dialog" slot="dropdown">dialog</div>
+    </dropdown>
  </div>
 </template>
 
@@ -10,21 +14,7 @@ export default {
   name: 'app',
 
   data() {
-    return {
-      dd1: {
-        visible: false,
-        onClick: () => {
-          this.dd1.visible = !this.dd1.visible
-        },
-        clickOut: () => { this.dd1.visible = false }
-      },
-
-      dd2: {
-        visible: false,
-        onClick: () => { this.dd2.visible = !this.dd2.visible },
-        clickOut: () => { this.dd2.visible = false }
-      }
-    }
+    return { visible: false }
   },
 
   components: { dropdown }
@@ -41,9 +31,17 @@ export default {
   margin-top: 60px;
 }
 
+.click-here {
+  display: inline-block;
+  padding: 3px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
 .dialog{
-  background: #ddd;
+  background: #eee;
   border: 1px solid #ccc;
   padding: .8rem;
+  box-shadow: 1px 1px 6px 0 #999;
 }
 </style>
