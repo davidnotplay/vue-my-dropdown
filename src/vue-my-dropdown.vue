@@ -198,86 +198,110 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style>
 
-$transition: transform .3s ease, opacity .3s ease
+.my-dropdown-dd {
+  position: absolute !important;
+  box-sizing: border-box !important;
+}
 
-.my-dropdown-dd
-  position: absolute !important
-  box-sizing: border-box !important
+.ani-none-leave-active, .ani-none-leave, .ani-none-enter-active, .ani-none-enter{
+  transition: none;
+}
 
-.ani-none-leave-active, .ani-none-leave, .ani-none-enter-active, .ani-none-enter
-  transition: none
+.ani-slide-leave-active {
+  transition: transform .3s ease, opacity .3s ease;
+  transform: scale(0, 0);
+  opacity: 0;
+}
 
-.ani-slide-leave-active 
-  transition: $transition
-  transform: scale(0, 0)
+.ani-slide-leave {
+  transform: scale(1, 1);
+  opacity: 1;
+}
+
+.ani-slide-enter-active {
+  transition: transform .3s ease, opacity .3s ease;
+  transform: scale(1, 1);
+  opacity: 1;
+}
+
+.ani-slide-enter {
+  transform: scale(0, 0);
+  opacity: 0;
+}
+
+
+.ani-slide-x-leave-active {
+  transition: transform .3s ease, opacity .3s ease;
+  transform: scaleX(0);
+  opacity: 0;
+}
+
+
+.ani-slide-x-leave {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+
+.ani-slide-x-enter-active {
+  transition: transform .3s ease, opacity .3s ease;
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+
+.ani-slide-x-enter {
+  transform: scaleX(0);
+  opacity: 0;
+}
+
+
+.ani-slide-y-leave-active {
+  transition: transform .3s ease, opacity .3s ease;
+  transform: scaleY(0);
+  opacity: 0;
+}
+
+
+.ani-slide-y-leave {
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+
+.ani-slide-y-enter-active {
+  transition: transform .3s ease, opacity .3s ease;
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+
+.ani-slide-y-enter {
+  transform: scaleY(0);
+  opacity: 0;
+}
+
+
+.ani-fade-leave-active {
+  transition: transform .3s ease, opacity .3s ease;
+  opacity: 0;
+}
+
+
+.ani-fade-leave {
+  opacity: 1;
+}
+
+
+.ani-fade-enter-active {
+  transition: transform .3s ease, opacity .3s ease;
+  opacity: 1
+}
+
+
+.ani-fade-enter {
   opacity: 0
-
-.ani-slide-leave 
-  transform: scale(1, 1)
-  opacity: 1
-
-
-.ani-slide-enter-active 
-  transition: $transition
-  transform: scale(1, 1)
-  opacity: 1
-
-
-.ani-slide-enter 
-  transform: scale(0, 0)
-  opacity: 0
-
-
-.ani-slide-x-leave-active 
-  transition: $transition
-  transform: scaleX(0)
-  opacity: 0
-
-.ani-slide-x-leave
-  transform: scaleX(1)
-  opacity: 1
-
-.ani-slide-x-enter-active
-  transition: $transition
-  transform: scaleX(1)
-  opacity: 1
-
-.ani-slide-x-enter
-  transform: scaleX(0)
-  opacity: 0
-
-.ani-slide-y-leave-active 
-  transition: $transition
-  transform: scaleY(0)
-  opacity: 0
-
-.ani-slide-y-leave
-  transform: scaleY(1)
-  opacity: 1
-
-.ani-slide-y-enter-active
-  transition: $transition
-  transform: scaleY(1)
-  opacity: 1
-
-.ani-slide-y-enter
-  transform: scaleY(0)
-  opacity: 0
-
-.ani-fade-leave-active
-  transition: $transition
-  opacity: 0
-
-.ani-fade-leave
-  opacity: 1
-
-.ani-fade-enter-active
-  transition: $transition
-  opacity: 1
-
-.ani-fade-enter
- opacity: 0
-
+}
 </style>
