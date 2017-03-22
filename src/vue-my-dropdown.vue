@@ -194,6 +194,12 @@ export default {
         this.close()
       }
     }
+  },
+
+  mounted() {
+    if (this.visible) {
+      this.open()
+    }
   }
 }
 </script>
