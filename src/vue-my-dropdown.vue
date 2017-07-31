@@ -3,7 +3,7 @@
     <span><slot></slot></span>
     <transition :name="animation">
       <div :style="ddStyle" class="my-dropdown-dd" v-show="visible">
-          <slot name="dropdown"></slot></div>
+          <slot name="dropdown"></slot>
       </div>
     </transition>
   </span>
@@ -175,7 +175,7 @@ export default {
     clickOutEvent(evt) {
       var $dd = this.$el.children[1]
       if (evt.target !== $dd && !$dd.contains(evt.target)) {
-        this.$emit('clickOut', evt)
+        this.$emit('clickout', evt)
       }
     },
 

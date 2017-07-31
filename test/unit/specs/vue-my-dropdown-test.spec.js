@@ -5,12 +5,15 @@ import dropdown from 'src/vue-my-dropdown.vue'
 const createDropdown = (visible = false, position = undefined, animation = undefined) => {
   const template =
     `<div>
-        <dropdown :visible="visible" :position="position" :animation="animation" ref="dropdown">
+        <dropdown :visible="visible" :position="position" :animation="animation" ref="dropdown"
+        @clickout="visible = false">
           <span @click="visible = !visible" :style="linkStyle">link</span> 
           <div slot="dropdown">
             <div :style="ddStyle">Dialog</div>
           </div>
         </dropdown>
+
+        <div ref="clickOutTest" style="position: absolute; top: 1000px; left: 1000px; width:100px; height:100px"></div>
     </div>`
 
   let body = window.document.body
@@ -44,10 +47,25 @@ const createDropdown = (visible = false, position = undefined, animation = undef
         display: 'block',
         height: '100px',
         width: '100px'
-      }
+      },
+      clickOut: 1
     }
   })
 }
+
+// const click = (el) => {
+//   var ev = document.createEvent('MouseEvent')
+//   ev.initMouseEvent(
+//       'click',
+//       true /* bubble */, true /* cancelable */,
+//       window, null,
+//       1, 1, 1, 1, /* coordinates */
+//       false, false, false, false, /* modifier keys */
+//       0,
+//       null
+//   )
+//   el.dispatchEvent(ev)
+// }
 
 describe('vue-my-dropdown.vue', () => {
   describe('visible property', () => {
@@ -141,6 +159,20 @@ describe('vue-my-dropdown.vue', () => {
     it('Custom', () => {
       let vm = createDropdown(true, undefined, 'ani-custom')
       assert.equal(vm.$refs.dropdown.animation, 'ani-custom')
+    })
+  })
+
+  describe('Click out event', () => {
+    it('click out', () => {
+      const vm = createDropdown(true)
+      const out = vm.$refs.clickOutTest
+      vm.$mount()
+
+      out.addEventListener('click', () => { console.log('hello world') })
+      Vue.nextTick(() => {
+        console.log(vm.visible)
+      })
+      out.dispatchEvent(new window.Event('click'))
     })
   })
 })

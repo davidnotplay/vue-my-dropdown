@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <dropdown :visible="visible" @clickOut="visible = false">
+    <dropdown :visible="visible" @clickout="visible = false">
       <span @click="visible = !visible" class="click-here">Click here</span>
       <div class="dialog" slot="dropdown">dialog</div>
     </dropdown>
