@@ -11,6 +11,8 @@
 
 <script>
 
+import './remove-polyfill'
+
 /**
  * Get the dimensions of `$ele` ele.
  * @param {HTMLElement} $ele
@@ -125,6 +127,8 @@ function setPosition($link, $dd, position, margin) {
   return outStyle
 }
 
+const getWindow = () => window.document
+
 export default {
   name: 'VueMyDropdown',
 
@@ -159,13 +163,13 @@ export default {
   methods: {
     open() {
       this.setPosition()
-      window.addEventListener('resize', this.resizeEvent)
-      setTimeout(() => window.addEventListener('click', this.clickOutEvent), 10)
+      getWindow().addEventListener('resize', this.resizeEvent)
+      setTimeout(() => getWindow().addEventListener('click', this.clickOutEvent), 10)
     },
 
     close() {
-      window.removeEventListener('resize', this.resizeEvent)
-      window.removeEventListener('click', this.clickOutEvent)
+      getWindow().removeEventListener('resize', this.resizeEvent)
+      getWindow().removeEventListener('click', this.clickOutEvent)
     },
 
     resizeEvent() {
@@ -201,6 +205,11 @@ export default {
     if (this.visible) {
       this.open()
     }
+  },
+
+  destroyed() {
+    getWindow().removeEventListener('resize', this.resizeEvent)
+    getWindow().removeEventListener('click', this.clickOutEvent)
   }
 }
 </script>

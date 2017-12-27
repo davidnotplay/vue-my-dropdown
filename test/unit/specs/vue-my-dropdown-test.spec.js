@@ -7,26 +7,18 @@ const createDropdown = (visible = false, position = undefined, animation = undef
     `<div>
         <dropdown :visible="visible" :position="position" :animation="animation" ref="dropdown"
         @clickout="visible = false">
-          <span @click="visible = !visible" :style="linkStyle">link</span> 
+          <span @click="visible = !visible" :style="linkStyle">link</span>
           <div slot="dropdown">
             <div :style="ddStyle">Dialog</div>
           </div>
         </dropdown>
-
-        <div ref="clickOutTest" style="position: absolute; top: 1000px; left: 1000px; width:100px; height:100px"></div>
     </div>`
 
   let body = window.document.body
-
-  if (window.document.getElementById('app') === null) {
-    let div = window.document.createElement('div')
-
-    div.id = 'app'
-    body.insertBefore(div, body.children[0])
-  } else {
-    window.document.getElementById('app').innerHTML = ''
-  }
-
+  let div = window.document.createElement('div')
+  body.innerHTML = ''
+  div.id = 'app'
+  body.insertBefore(div, body.children[0])
   body.style.padding = '0'
   body.style.margin = '0'
 
@@ -52,20 +44,6 @@ const createDropdown = (visible = false, position = undefined, animation = undef
     }
   })
 }
-
-// const click = (el) => {
-//   var ev = document.createEvent('MouseEvent')
-//   ev.initMouseEvent(
-//       'click',
-//       true /* bubble */, true /* cancelable */,
-//       window, null,
-//       1, 1, 1, 1, /* coordinates */
-//       false, false, false, false, /* modifier keys */
-//       0,
-//       null
-//   )
-//   el.dispatchEvent(ev)
-// }
 
 describe('vue-my-dropdown.vue', () => {
   describe('visible property', () => {
@@ -145,7 +123,7 @@ describe('vue-my-dropdown.vue', () => {
         assert.equal(elStyle.position, ddStyle.position)
         assert.equal(elStyle.top, ddStyle.top)
         assert.equal(elStyle.left, ddStyle.left)
-        assert.equal(elStyle.webkitTransformOrigin, '0% 0%')
+        assert.equal(elStyle.webkitTransformOrigin, 'left top 0px')
       })
     })
   })
@@ -163,16 +141,18 @@ describe('vue-my-dropdown.vue', () => {
   })
 
   describe('Click out event', () => {
-    it('click out', () => {
-      const vm = createDropdown(true)
-      const out = vm.$refs.clickOutTest
-      vm.$mount()
+    const vm = createDropdown(true)
 
-      out.addEventListener('click', () => { console.log('hello world') })
-      Vue.nextTick(() => {
-        console.log(vm.visible)
-      })
-      out.dispatchEvent(new window.Event('click'))
+    before(done => {
+      vm.$mount()
+      setTimeout(() => {
+        window.document.dispatchEvent(new window.Event('click'))
+        Vue.nextTick(() => { done() })
+      }, 100)
+    })
+
+    it('click out', () => {
+      assert.equal(vm.visible, false)
     })
   })
 })

@@ -9,13 +9,13 @@ Vuejs >= 2.x
 $ npm install vue-my-dropdown
 ```
 
-## Usage 
+## Usage
 You can import and insert the component using:
 
 ```javascript
 import dropdown from 'vue-my-dropdown'
 
-// Component 
+// Component
 export default {
     //...
     components: { dropdown },
@@ -25,6 +25,12 @@ export default {
 
 ## Documentation
 [Official documentation](https://davidnotplay.github.io/vue-my-dropdown/)
+
+## Changelog
+### 2.1.0
+- Fixed error in IE <= 11.
+- Added positioned event.
+- Changed `.babelrc` configuration. Now use `env` preset
 
 ## LICENSE
 The license is MIT. See LICENSE file to more info.
