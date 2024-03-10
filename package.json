@@ -9,7 +9,9 @@
     "test": "vitest --config ./vitest.config.ts"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "6.4.2",
     "@testing-library/vue": "8.0.2",
+    "@types/jest": "29.5.12",
     "@typescript-eslint/eslint-plugin": "7.1.1",
     "@typescript-eslint/parser": "7.1.1",
     "@vitejs/plugin-vue": "5.0.4",
@@ -28,6 +30,6 @@
     "vue-tsc": "1.8.27"
   },
   "peerDependencies": {
-    "vue": ">=3.1.0"
+    "vue": ">=3.3.0"
   }
 }
