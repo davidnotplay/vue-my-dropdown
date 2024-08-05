@@ -10,13 +10,12 @@ type NormalizeRectKey = keyof Pick<DOMRect, 'left' | 'top' | 'width' | 'height'>
 type NormalizeRect = Record<NormalizeRectKey, number>;
 
 /**
- * @TODO rename
- *
- * create the styles used by the dropdown element.
+ * Creates the styles used by the dropdown element.
  *
  * @param $link Link element used to calculate the dropdown position.
- * @param $dropadown Dropdown element used to calculated his own position..
- * @param position Position keys
+ * @param $dropdown Dropdown element used to calculate its own position.
+ * @param position Position keys determining how the dropdown is positioned relative to the link.
+ * @returns An object representing the CSS styles for positioning the dropdown.
  */
 export function createStyles(
     $link: HTMLElement,
@@ -80,11 +79,10 @@ export function createStyles(
 }
 
 /**
- * Get the dimensions of `$ele` ele.
+ * Get the dimensions of `$ele` element.
  *
- * @return dimensions
- * @return dimensions.width `$ele` Element width.
- * @return dimensions.height `$ele` Element height.
+ * @param $ele The element to measure.
+ * @returns An object containing the width and height of the element.
  */
 function getSize($ele: HTMLElement): {width: number; height: number} {
     const $clone = $ele.cloneNode(true) as HTMLElement;
@@ -104,10 +102,10 @@ function getSize($ele: HTMLElement): {width: number; height: number} {
 }
 
 /**
- * Normalize the value sof the rect properties
+ * Normalize the values of the rect properties.
  *
  * @param rect Rect containing the properties to normalize.
- * @return Rect object with the normalized properties.
+ * @returns A rect object with the normalized properties.
  */
 function normalizeRect(rect: DOMRect): NormalizeRect {
     const newRect: NormalizeRect = {
