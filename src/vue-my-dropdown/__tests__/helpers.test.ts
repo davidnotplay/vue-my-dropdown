@@ -1,4 +1,4 @@
-import {render, screen} from '@testing-library/vue';
+import {render} from '@testing-library/vue';
 import {DropdownStyle, createStyles} from '../helpers';
 import {Position} from '../BaseDropdown.vue';
 

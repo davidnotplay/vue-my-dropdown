@@ -1,0 +1,8 @@
+{
+    "*.json": ["prettier --write"],
+    "*.scss": ["prettier --write"],
+    "*.css": ["prettier --write"],
+    "*.ts": ["prettier --write", "npm run lint:fix"],
+    "*.js": ["prettier --write", "npm run lint:fix"],
+    "*.vue": ["prettier --write", "npm run lint:fix"]
+}
