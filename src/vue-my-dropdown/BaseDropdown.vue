@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import {onMounted, ref, watch} from 'vue';
+import {onMounted, ref, watch, nextTick} from 'vue';
 import {createStyles} from './helpers.ts';
 
 export type BaseDropdownProps = {
     visible?: boolean;
     position?: Position;
+    link: HTMLElement | null;
 };
 
 export type Position = [Horizontal, Vertical, Horizontal, Vertical];
@@ -17,7 +18,6 @@ const props = withDefaults(defineProps<BaseDropdownProps>(), {
 });
 
 // Elements
-const $link = ref(null);
 const $dropdown = ref(null);
 
 // Internal states
@@ -30,11 +30,10 @@ defineSlots<{
 
 // Helpers
 function open() {
-    if ($link.value === null || $dropdown.value === null) {
-        return;
+    // @TODO warning if props.link is null.
+    if (props.link !== null && $dropdown.value !== null) {
+        ddStyles.value = createStyles(props.link, $dropdown.value, props.position);
     }
-
-    ddStyles.value = createStyles($link.value, $dropdown.value, props.position);
 }
 
 // Watchers
@@ -54,16 +53,13 @@ watch(
 // Lifecycle
 onMounted(() => {
     if (props.visible) {
-        open();
+        nextTick(open);
     }
 });
 </script>
 
 <template>
-    <span ref="$link" :style="{display: 'inline-block'}">
-        <slot />
-    </span>
     <div v-show="visible" ref="$dropdown" :style="ddStyles">
-        <slot name="dropdown" />
+        <slot />
     </div>
 </template>
