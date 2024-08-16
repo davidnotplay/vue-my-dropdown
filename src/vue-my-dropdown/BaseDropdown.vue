@@ -28,12 +28,28 @@ defineSlots<{
     default(): any; // eslint-disable-line
 }>();
 
-// Helpers
-function open() {
-    // @TODO warning if props.link is null.
+/**
+ * Set the dropdown style properties.
+ */
+function setDropdownStyles() {
     if (props.link !== null && $dropdown.value !== null) {
         ddStyles.value = createStyles(props.link, $dropdown.value, props.position);
     }
+}
+
+/**
+ * Open the dropdown in its position and create the events.
+ */
+function open() {
+    window.addEventListener('resize', setDropdownStyles);
+    setDropdownStyles();
+}
+
+/**
+ * Remove the events.
+ */
+function close() {
+    window.removeEventListener('resize', setDropdownStyles);
 }
 
 // Watchers
@@ -46,7 +62,10 @@ watch(
 
         if (newValue) {
             open();
+            return;
         }
+
+        close();
     }
 );
 
