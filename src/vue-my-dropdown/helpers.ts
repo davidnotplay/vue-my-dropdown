@@ -79,6 +79,24 @@ export function createStyles(
 }
 
 /**
+ * Check if the clicked item is neither the link nor the dropdown,
+ * nor a child element of either the link or the dropdown.
+ *
+ * @param $eleClicked Element that is clicked.
+ * @param $link The link element to check.
+ * @param $dd Dropdown The dropdown element to check.
+ * @return True if the clicked item is outside the link and dropdown; false otherwise.
+ */
+export function clickout($eleClicked: HTMLElement, $link: HTMLElement, $dd: HTMLElement): boolean {
+    return (
+        $link != $eleClicked &&
+        !$link.contains($eleClicked) &&
+        $dd != $eleClicked &&
+        !$dd.contains($eleClicked)
+    );
+}
+
+/**
  * Get the dimensions of `$ele` element.
  *
  * @param $ele The element to measure.

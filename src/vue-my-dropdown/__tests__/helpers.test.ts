@@ -1,5 +1,6 @@
+import {getByTestId} from '@testing-library/dom';
 import {render} from '@testing-library/vue';
-import {DropdownStyle, createStyles} from '../helpers';
+import {DropdownStyle, clickout, createStyles} from '../helpers';
 import {Position} from '../BaseDropdown.vue';
 
 type Styles = {[key: string]: string};
@@ -241,6 +242,68 @@ describe('Function createStyles', () => {
 
             // screen.debug();
             expect(createStyles($link, $dd, situation.position)).toEqual(situation.expected);
+        });
+    });
+});
+
+describe('Function clickout', () => {
+    it('exists', () => {
+        expect(clickout).toBeTypeOf('function');
+    });
+    const $container = document.createElement('div');
+
+    $container.innerHTML = `<div data-testid="main-container">
+        <div data-testid="clickout-top" style="height:100px; width:100%">click out top</div>
+        <div data-testid="link" style="height:100px; width:100%">
+            link
+            <div data-testid="link-inner" style="height:100px; width:100%; margin:2%">
+                link inner
+            </div>
+        </div>
+        <div data-testid="dropdown" style="height:100px; width:100%">
+            dropdown
+            <div data-testid="dropdown-inner" style="height:100px; width:100%; margin:2%">
+                dropdown inner
+            </div>
+        </div>
+        <div data-testid="clickout-bottom" style="height:100px; width:100%">click out bottom</div>
+    </div>`;
+
+    const $clickoutTop = getByTestId($container, 'clickout-top');
+    const $link = getByTestId($container, 'link');
+    const $linkInner = getByTestId($container, 'link-inner');
+    const $dropdown = getByTestId($container, 'dropdown');
+    const $ddInner = getByTestId($container, 'dropdown-inner');
+    const $clickoutBottom = getByTestId($container, 'clickout-bottom');
+
+    [
+        {
+            $element: $clickoutTop,
+            expected: true,
+        },
+        {
+            $element: $link,
+            expected: false,
+        },
+        {
+            $element: $linkInner,
+            expected: false,
+        },
+        {
+            $element: $dropdown,
+            expected: false,
+        },
+        {
+            $element: $ddInner,
+            expected: false,
+        },
+        {
+            $element: $clickoutBottom,
+            expected: true,
+        },
+    ].forEach(({$element, expected}, i) => {
+        it(`clicks out of dropdown: Situtation ${i + 1}`, () => {
+            expect(clickout($element, $link, $dropdown)).toBe(expected);
         });
     });
 });

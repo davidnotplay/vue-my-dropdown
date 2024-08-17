@@ -6,13 +6,16 @@ import {defineComponent, nextTick} from 'vue';
 
 const addEventListenerMock = vi.fn();
 const removeEventListenerMock = vi.fn();
+const consoleWarn = vi.fn();
 
 beforeEach(() => {
     addEventListenerMock.mockReset();
     removeEventListenerMock.mockReset();
+    consoleWarn.mockReset();
 
     window.addEventListener = addEventListenerMock;
     window.removeEventListener = removeEventListenerMock;
+    console.warn = consoleWarn;
 
     Object.defineProperty(HTMLElement.prototype, 'offsetParent', {
         get() {
@@ -180,4 +183,86 @@ it('removes the resize event when the dropdown is closed', async () => {
             removeEventListenerMock.mock.calls[0][0] === 'resize' &&
             typeof removeEventListenerMock.mock.calls[0][1] === 'function'
     ).toBe(true);
+});
+
+it('displays console.warn when link property is not HTML element', async () => {
+    const TestComponent = defineComponent({
+        components: {Dropdown},
+        data() {
+            return {
+                visible: true,
+                link: null as HTMLElement | null,
+            };
+        },
+        mounted() {
+            this.link = this.$refs.link as HTMLElement;
+        },
+        template: `
+        <div>
+            <button type="button" ref="link">Click here</button>
+            <Dropdown :link="3" visible>Dropdown message</Dropdown>
+        </div>`,
+    });
+
+    render(TestComponent);
+    await nextTick();
+    expect(consoleWarn).toHaveBeenCalledTimes(1);
+});
+
+describe('clickout event', () => {
+    const TestComponent = defineComponent({
+        components: {Dropdown},
+        data() {
+            return {
+                visible: false,
+                link: null as null | HTMLElement,
+            };
+        },
+        mounted() {
+            this.link = this.$refs.link as HTMLElement;
+        },
+        template: `
+        <div>
+            <div data-testid="clickout">clickout</div>
+            <button
+                data-testid="link"
+                type="button" ref="link"
+                @click="visible = true"
+            >
+                Click here
+            </button>
+            <Dropdown :link="link" :visible="visible" @clickout="visible = false">
+                <div data-testid="inner">Dropdown message</div>
+            </Dropdown>
+        </div>`,
+    });
+
+    beforeEach(() => {
+        addEventListenerMock.mockReset();
+        removeEventListenerMock.mockReset();
+    });
+
+    [
+        {
+            testId: 'clickout',
+            expected: true,
+        },
+        {
+            testId: 'link',
+            expected: false,
+        },
+        {
+            testId: 'inner',
+            expected: false,
+        },
+    ].forEach(({testId, expected}) => {
+        it(`triggers clickout event: Situation ${testId}`, async () => {
+            render(TestComponent);
+            await fireEvent.click(screen.getByRole('button'));
+            await fireEvent.click(screen.getByTestId(testId));
+            await nextTick();
+            const prefix = expected ? 'not' : 'is';
+            expect(screen.getByText(/Dropdown message/))[prefix].toBeVisible();
+        });
+    });
 });

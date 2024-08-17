@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {onMounted, ref, watch, nextTick} from 'vue';
-import {createStyles} from './helpers.ts';
+import {clickout, createStyles} from './helpers.ts';
 
 export type BaseDropdownProps = {
     visible?: boolean;
@@ -20,6 +20,9 @@ const props = withDefaults(defineProps<BaseDropdownProps>(), {
 // Elements
 const $dropdown = ref(null);
 
+// Event
+const emit = defineEmits(['clickout']);
+
 // Internal states
 const ddStyles = ref<{[key: string]: string}>({});
 
@@ -33,7 +36,12 @@ defineSlots<{
  */
 function setDropdownStyles() {
     if (props.link !== null && $dropdown.value !== null) {
-        ddStyles.value = createStyles(props.link, $dropdown.value, props.position);
+        if (props.link instanceof HTMLElement) {
+            ddStyles.value = createStyles(props.link, $dropdown.value, props.position);
+            return;
+        }
+
+        console.warn(`Link property is not HTML element.`);
     }
 }
 
@@ -41,8 +49,23 @@ function setDropdownStyles() {
  * Open the dropdown in its position and create the events.
  */
 function open() {
-    window.addEventListener('resize', setDropdownStyles);
     setDropdownStyles();
+    window.addEventListener('resize', setDropdownStyles);
+    nextTick(() => document.addEventListener('click', clickoutEvent));
+}
+
+/**
+    Event executed when user click out of the dropdown.
+    The function triggers the clickout event.
+ */
+function clickoutEvent(evt: Event) {
+    if (
+        props.link !== null &&
+        $dropdown.value !== null &&
+        clickout(evt.target as HTMLElement, props.link, $dropdown.value)
+    ) {
+        emit('clickout');
+    }
 }
 
 /**
