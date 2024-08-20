@@ -51,7 +51,12 @@ describe('Function createStyles', () => {
             containerStyles: {display: 'block', width: '100%', height: '100%'},
 
             position: ['left', 'top', 'left', 'top'],
-            expected: {position: 'absolute', left: '200px', top: '200px'},
+            expected: {
+                position: 'absolute',
+                left: '200px',
+                top: '200px',
+                transformOrigin: 'left top',
+            },
 
             ddRect: {width: 10, height: 10, left: 40, top: 40},
             offsetParentSelector: 'body',
@@ -64,7 +69,12 @@ describe('Function createStyles', () => {
             containerStyles: {display: 'block', width: '100%', height: '100%'},
 
             position: ['center', 'top', 'left', 'top'],
-            expected: {position: 'absolute', left: '250px', top: '200px'},
+            expected: {
+                position: 'absolute',
+                left: '250px',
+                top: '200px',
+                transformOrigin: 'left top',
+            },
 
             ddRect: {width: 10, height: 10, left: 40, top: 40},
             offsetParentSelector: 'body',
@@ -77,7 +87,12 @@ describe('Function createStyles', () => {
             containerStyles: {display: 'block', width: '100%', height: '100%'},
 
             position: ['right', 'top', 'left', 'top'],
-            expected: {position: 'absolute', left: '300px', top: '200px'},
+            expected: {
+                position: 'absolute',
+                left: '300px',
+                top: '200px',
+                transformOrigin: 'left top',
+            },
 
             ddRect: {width: 10, height: 10, left: 40, top: 40},
             offsetParentSelector: 'body',
@@ -91,7 +106,12 @@ describe('Function createStyles', () => {
             containerStyles: {display: 'block', width: '100%', height: '100%'},
 
             position: ['left', 'center', 'left', 'top'],
-            expected: {position: 'absolute', left: '200px', top: '250px'},
+            expected: {
+                position: 'absolute',
+                left: '200px',
+                top: '250px',
+                transformOrigin: 'left top',
+            },
 
             ddRect: {width: 10, height: 10, left: 40, top: 40},
             offsetParentSelector: 'body',
@@ -104,7 +124,12 @@ describe('Function createStyles', () => {
             containerStyles: {display: 'block', width: '100%', height: '100%'},
 
             position: ['left', 'bottom', 'left', 'top'],
-            expected: {position: 'absolute', left: '200px', top: '300px'},
+            expected: {
+                position: 'absolute',
+                left: '200px',
+                top: '300px',
+                transformOrigin: 'left top',
+            },
 
             ddRect: {width: 10, height: 10, left: 40, top: 40},
             offsetParentSelector: 'body',
@@ -118,7 +143,12 @@ describe('Function createStyles', () => {
             containerStyles: {display: 'block', width: '100%', height: '100%'},
 
             position: ['left', 'top', 'center', 'top'],
-            expected: {position: 'absolute', left: '195px', top: '200px'},
+            expected: {
+                position: 'absolute',
+                left: '195px',
+                top: '200px',
+                transformOrigin: 'center top',
+            },
 
             ddRect: {width: 10, height: 10, left: 40, top: 40},
             offsetParentSelector: 'body',
@@ -131,7 +161,12 @@ describe('Function createStyles', () => {
             containerStyles: {display: 'block', width: '100%', height: '100%'},
 
             position: ['left', 'top', 'right', 'top'],
-            expected: {position: 'absolute', left: '190px', top: '200px'},
+            expected: {
+                position: 'absolute',
+                left: '190px',
+                top: '200px',
+                transformOrigin: 'right top',
+            },
 
             ddRect: {width: 10, height: 10, left: 40, top: 40},
             offsetParentSelector: 'body',
@@ -145,7 +180,12 @@ describe('Function createStyles', () => {
             containerStyles: {display: 'block', width: '100%', height: '100%'},
 
             position: ['left', 'top', 'left', 'center'],
-            expected: {position: 'absolute', left: '200px', top: '195px'},
+            expected: {
+                position: 'absolute',
+                left: '200px',
+                top: '195px',
+                transformOrigin: 'left center',
+            },
 
             ddRect: {width: 10, height: 10, left: 40, top: 40},
             offsetParentSelector: 'body',
@@ -158,7 +198,12 @@ describe('Function createStyles', () => {
             containerStyles: {display: 'block', width: '100%', height: '100%'},
 
             position: ['left', 'top', 'left', 'bottom'],
-            expected: {position: 'absolute', left: '200px', top: '190px'},
+            expected: {
+                position: 'absolute',
+                left: '200px',
+                top: '190px',
+                transformOrigin: 'left bottom',
+            },
 
             ddRect: {width: 10, height: 10, left: 40, top: 40},
             offsetParentSelector: 'body',
@@ -177,7 +222,12 @@ describe('Function createStyles', () => {
             },
 
             position: ['left', 'top', 'left', 'top'],
-            expected: {position: 'absolute', left: '170px', top: '170px'},
+            expected: {
+                position: 'absolute',
+                left: '170px',
+                top: '170px',
+                transformOrigin: 'left top',
+            },
 
             ddRect: {width: 10, height: 10, left: 40, top: 40},
             offsetParentSelector: 'body #container',
@@ -195,7 +245,12 @@ describe('Function createStyles', () => {
             },
 
             position: ['left', 'top', 'left', 'top'],
-            expected: {position: 'absolute', left: '170px', top: '170px'},
+            expected: {
+                position: 'absolute',
+                left: '170px',
+                top: '170px',
+                transformOrigin: 'left top',
+            },
 
             ddRect: {width: 10, height: 10, left: 40, top: 40},
             offsetParentSelector: 'body #container',

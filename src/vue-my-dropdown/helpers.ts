@@ -4,6 +4,7 @@ export type DropdownStyle = {
     position: 'absolute';
     top: string;
     left: string;
+    transformOrigin: string;
 };
 
 type NormalizeRectKey = keyof Pick<DOMRect, 'left' | 'top' | 'width' | 'height'>;
@@ -30,6 +31,7 @@ export function createStyles(
     const parentRect = normalizeRect(offsetParent.getBoundingClientRect());
     ddCorner.left = linkRect.left - parentRect.left;
     ddCorner.top = linkRect.top - parentRect.top;
+    const origin = {h: 'left', v: 'top'};
 
     switch (position[0].toLowerCase()) {
         case 'right':
@@ -54,20 +56,24 @@ export function createStyles(
     switch (position[2].toLowerCase()) {
         case 'center':
             ddCorner.left -= ddRect.width / 2;
+            origin.h = 'center';
             break;
 
         case 'right':
             ddCorner.left -= ddRect.width;
+            origin.h = 'right';
             break;
     }
 
     switch (position[3].toLowerCase()) {
         case 'center':
             ddCorner.top -= ddRect.height / 2;
+            origin.v = 'center';
             break;
 
         case 'bottom':
             ddCorner.top -= ddRect.height;
+            origin.v = 'bottom';
             break;
     }
 
@@ -75,6 +81,7 @@ export function createStyles(
         position: 'absolute',
         top: `${Math.round(ddCorner.top)}px`,
         left: `${Math.round(ddCorner.left)}px`,
+        transformOrigin: `${origin.h} ${origin.v}`,
     };
 }
 
