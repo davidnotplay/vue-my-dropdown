@@ -12,6 +12,12 @@
     ],
     "plugins": ["@typescript-eslint", "prettier"],
     "rules": {
+        "no-console": [
+            "error",
+            {
+                "allow": ["warn", "error"]
+            }
+        ],
         "prettier/prettier": "error"
     }
 }
