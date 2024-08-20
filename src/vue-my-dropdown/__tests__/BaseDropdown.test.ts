@@ -208,7 +208,7 @@ it('displays console.warn when link property is not HTML element', async () => {
     expect(consoleWarn).toHaveBeenCalledTimes(1);
 });
 
-describe('clickout event', () => {
+describe('Clickout event', () => {
     const TestComponent = defineComponent({
         components: {Dropdown},
         data() {
@@ -263,5 +263,112 @@ describe('clickout event', () => {
             const prefix = expected ? 'not' : 'is';
             expect(screen.getByText(/Dropdown message/))[prefix].toBeVisible();
         });
+    });
+});
+
+describe('Animation property', () => {
+    const transitionComponent = defineComponent({
+        template: '<div data-testid="transition"></div>',
+    });
+    it('exists the transition component', async () => {
+        const TestComponent = defineComponent({
+            components: {Dropdown},
+            data() {
+                return {
+                    visible: true,
+                    link: null as HTMLElement | null,
+                };
+            },
+            mounted() {
+                this.link = this.$refs.link as HTMLElement;
+            },
+            template: `
+            <div>
+                <button type="button" ref="link">Click here</button>
+                <Dropdown :link="3" visible>
+                    <template>
+                        Dropdown message {{animation}}
+                    </template>
+                </Dropdown>
+            </div>`,
+        });
+
+        render(TestComponent, {
+            global: {
+                stubs: {
+                    transition: transitionComponent,
+                },
+            },
+        });
+        await nextTick();
+        expect(screen.getByTestId('transition')).toBeVisible;
+    });
+
+    it('validates the default value', async () => {
+        const TestComponent = defineComponent({
+            components: {Dropdown},
+            data() {
+                return {
+                    visible: true,
+                    link: null as HTMLElement | null,
+                };
+            },
+            mounted() {
+                this.link = this.$refs.link as HTMLElement;
+            },
+            template: `
+            <div>
+                <button type="button" ref="link">Click here</button>
+                <Dropdown :link="3" visible>
+                    <template>
+                        Dropdown message {{animation}}
+                    </template>
+                </Dropdown>
+            </div>`,
+        });
+
+        render(TestComponent, {
+            global: {
+                stubs: {
+                    transition: transitionComponent,
+                },
+            },
+        });
+        await nextTick();
+        expect(screen.getByTestId('transition')).toHaveAttribute('name', 'slide');
+    });
+
+    it('uses custom animation', async () => {
+        const TestComponent = defineComponent({
+            components: {Dropdown},
+            data() {
+                return {
+                    visible: true,
+                    link: null as HTMLElement | null,
+                };
+            },
+            mounted() {
+                this.link = this.$refs.link as HTMLElement;
+            },
+            template: `
+            <div>
+                <button type="button" ref="link">Click here</button>
+                <Dropdown :link="3" visible animation="custom-animation">
+                    <template>
+                        Dropdown message {{animation}}
+                    </template>
+                </Dropdown>
+            </div>`,
+        });
+
+        render(TestComponent, {
+            global: {
+                stubs: {
+                    transition: transitionComponent,
+                },
+            },
+        });
+        await nextTick();
+        expect(screen.getByTestId('transition')).toHaveAttribute('name', 'custom-animation');
     });
 });
