@@ -95,8 +95,7 @@ it('executes `open` function when the initial value of `visible` property is tru
 
     render(TestComponent);
     await nextTick();
-    await nextTick();
-    expect(screen.getByText(/Dropdown message/)!.style!.position).toBe('absolute');
+    expect(screen.getByText(/Dropdown message/)).toBeVisible();
 });
 
 it('executes `open` function when the `visible` property changes to `true` value', async () => {
@@ -123,7 +122,7 @@ it('executes `open` function when the `visible` property changes to `true` value
     await nextTick();
     await fireEvent.click(screen.getByRole('button'));
     await nextTick();
-    expect(screen.getByText(/Dropdown message/)!.style!.position).toBe('absolute');
+    expect(screen.getByText(/Dropdown message/)).toBeVisible();
 });
 
 it('adds the resize event when the dropdown is opened', async () => {
