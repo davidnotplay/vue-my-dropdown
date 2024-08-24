@@ -9,8 +9,8 @@
         "test:watch": "vitest --config ./vitest.config.ts",
         "test": "vitest run --config ./vitest.config.ts",
         "prepare": "husky",
-        "lint": "eslint src/**/*.{ts,vue,js}",
-        "lint:fix": "eslint --fix src/**/*.{js,ts,vue}"
+        "lint": "vue-tsc && eslint src/**/*.{ts,vue,js}",
+        "lint:fix": "vue-tsc && eslint --fix src/**/*.{js,ts,vue}"
     },
     "devDependencies": {
         "@testing-library/dom": "10.4.0",

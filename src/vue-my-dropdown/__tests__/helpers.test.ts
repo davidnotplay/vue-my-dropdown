@@ -1,7 +1,7 @@
 import {getByTestId} from '@testing-library/dom';
 import {render} from '@testing-library/vue';
 import {DropdownStyle, clickout, createStyles} from '../helpers';
-import {Position} from '../BaseDropdown.vue';
+import {Position} from '../MyDropdown.vue';
 
 type Styles = {[key: string]: string};
 

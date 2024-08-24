@@ -1,7 +1,7 @@
 // @TODO try to remove the eslint exception.
 /* eslint-disable vue/one-component-per-file */
 import {fireEvent, render, screen} from '@testing-library/vue';
-import Dropdown from '../../vue-my-dropdown/BaseDropdown.vue';
+import Dropdown from '../../vue-my-dropdown/MyDropdown.vue';
 import {defineComponent, nextTick} from 'vue';
 
 const addEventListenerMock = vi.fn();

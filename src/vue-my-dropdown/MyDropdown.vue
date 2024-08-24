@@ -2,7 +2,7 @@
 import {onMounted, ref, watch, nextTick, Slot} from 'vue';
 import {clickout, createStyles} from './helpers.ts';
 
-export type BaseDropdownProps = {
+export type MyDropdownProps = {
     link: HTMLElement | null;
     visible?: boolean;
     position?: Position;
@@ -14,7 +14,7 @@ export type Vertical = 'top' | 'center' | 'bottom';
 export type Horizontal = 'left' | 'center' | 'right';
 export type Animation = string;
 
-const props = withDefaults(defineProps<BaseDropdownProps>(), {
+const props = withDefaults(defineProps<MyDropdownProps>(), {
     visible: false,
     position: () => ['right', 'top', 'left', 'top'],
     animation: 'slide',

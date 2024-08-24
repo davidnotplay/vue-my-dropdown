@@ -1,4 +1,4 @@
-import {Position} from './BaseDropdown.vue';
+import {Position} from './MyDropdown.vue';
 
 export type DropdownStyle = {
     position: 'absolute';
