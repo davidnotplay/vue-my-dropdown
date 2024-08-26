@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import {onMounted, ref, watch, nextTick, Slot} from 'vue';
+import type {Slot} from 'vue';
+import {onMounted, ref, watch, nextTick} from 'vue';
 import {clickout, createStyles} from './helpers.ts';
 
 export type MyDropdownProps = {
@@ -25,7 +26,7 @@ const animationTime = '0.3s';
 // Elements
 const $dropdown = ref(null);
 // Event
-const emit = defineEmits(['clickout']);
+const emit = defineEmits(['clickout', 'open', 'close']);
 // Internal states
 const ddStyles = ref<{[key: string]: string}>({});
 // Slots
@@ -103,7 +104,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <Transition :name="animation">
+    <Transition :name="animation" @after-enter="emit('open')" @after-leave="emit('close')">
         <div v-show="visible" ref="$dropdown" :style="ddStyles">
             <slot />
         </div>

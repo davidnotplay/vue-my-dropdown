@@ -285,7 +285,7 @@ describe('Animation property', () => {
             template: `
             <div>
                 <button type="button" ref="link">Click here</button>
-                <Dropdown :link="3" visible>
+                <Dropdown :link="link" visible>
                     <template>
                         Dropdown message {{animation}}
                     </template>
@@ -319,7 +319,7 @@ describe('Animation property', () => {
             template: `
             <div>
                 <button type="button" ref="link">Click here</button>
-                <Dropdown :link="3" visible>
+                <Dropdown :link="link" visible>
                     <template>
                         Dropdown message {{animation}}
                     </template>
@@ -353,7 +353,7 @@ describe('Animation property', () => {
             template: `
             <div>
                 <button type="button" ref="link">Click here</button>
-                <Dropdown :link="3" visible animation="custom-animation">
+                <Dropdown :link="link" visible animation="custom-animation">
                     <template>
                         Dropdown message {{animation}}
                     </template>
@@ -371,4 +371,75 @@ describe('Animation property', () => {
         await nextTick();
         expect(screen.getByTestId('transition')).toHaveAttribute('name', 'custom-animation');
     });
+});
+
+it('triggers "open" event when the dropdown is opened', async () => {
+    const TestComponent = defineComponent({
+        components: {Dropdown},
+        data() {
+            return {
+                visible: false,
+                link: null as HTMLElement | null,
+                isOpened: false,
+            };
+        },
+        mounted() {
+            this.link = this.$refs.link as HTMLElement;
+        },
+        template: `
+            <div>
+                <button type="button" ref="link" @click="visible = true">Click here</button>
+                <Dropdown :link="link" :visible="visible" @open="isOpened = true">
+                    <template>Dropdown message</template>
+                </Dropdown>
+                <div v-show="isOpened">Dropdown opened</div>
+            </div>`,
+    });
+
+    render(TestComponent, {
+        global: {
+            stubs: {
+                transition: false,
+            },
+        },
+    });
+    await fireEvent.click(screen.getByRole('button'));
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    expect(screen.getByText(/Dropdown opened/)).toBeVisible();
+});
+
+it('triggers "close" event when the dropdown is closed', async () => {
+    const TestComponent = defineComponent({
+        components: {Dropdown},
+        data() {
+            return {
+                visible: true,
+                link: null as HTMLElement | null,
+                isClosed: false,
+            };
+        },
+        mounted() {
+            this.link = this.$refs.link as HTMLElement;
+        },
+        template: `
+            <div>
+                <button type="button" ref="link" @click="visible = false">Click here</button>
+                <Dropdown :link="link" :visible="visible" @close="isClosed = true">
+                    <template>Dropdown message</template>
+                </Dropdown>
+                <div v-show="isClosed">Dropdown opened</div>
+            </div>`,
+    });
+
+    render(TestComponent, {
+        global: {
+            stubs: {
+                transition: false,
+            },
+        },
+    });
+    await fireEvent.click(screen.getByRole('button'));
+    // adjust the setTimeout time to the animation time.
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    expect(screen.getByText(/Dropdown opened/)).toBeVisible();
 });
