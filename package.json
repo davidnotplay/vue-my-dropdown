@@ -3,10 +3,12 @@
     "version": "3.0.0-alpha1",
     "main": "./dist/vue-my-dropdown.es.js",
     "module": "./dist/vue-my-dropdown.umd.js",
+    "types": "dist/vue-my-dropdown.d.ts",
     "exports": {
         ".": {
             "import": "./dist/vue-my-dropdown.es.js",
-            "require": "./dist/vue-my-dropdown.umd.js"
+            "require": "./dist/vue-my-dropdown.umd.js",
+            "types": "./dist/vue-my-dropdown.d.ts"
         }
     },
     "type": "module",

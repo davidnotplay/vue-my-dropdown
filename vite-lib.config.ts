@@ -7,7 +7,7 @@ export default defineConfig({
     build: {
         lib: {
             entry: 'src/vue-my-dropdown/index.ts',
-            name: 'MyDropdown',
+            name: 'vue-my-dropdown',
             fileName: (format) => `vue-my-dropdown.${format}.js`,
         },
         rollupOptions: {
@@ -23,8 +23,10 @@ export default defineConfig({
     plugins: [
         vue(),
         dts({
-            include: ['src/vue-my-dropdown/index.ts'],
-            outDir: 'dist/types', // Carpeta donde se guardarán los tipos
+            rollupTypes: true,
+            include: ['src/vue-my-dropdown/index.ts', 'src/vue-my-dropdown/MyDropdown.vue'],
+            outDir: 'dist',
+            logLevel: 'info',
         }),
     ],
 });
