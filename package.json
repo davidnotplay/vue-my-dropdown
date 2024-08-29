@@ -9,6 +9,12 @@
             "import": "./dist/vue-my-dropdown.es.js",
             "require": "./dist/vue-my-dropdown.umd.js",
             "types": "./dist/vue-my-dropdown.d.ts"
+        },
+        "./style": {
+            "default": "./dist/style.css"
+        },
+        "./style.css": {
+            "default": "./dist/style.css"
         }
     },
     "type": "module",
