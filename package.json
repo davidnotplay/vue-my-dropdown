@@ -19,9 +19,9 @@
     },
     "type": "module",
     "scripts": {
-        "web:dev": "vite -c vite-website.config.ts",
-        "web:build": "vue-tsc && vite build -c vite-website.config.ts",
-        "web:preview": "vite preview -c vite-website.config.ts",
+        "web:dev": "vite -c vite-docs.config.ts",
+        "web:build": "vue-tsc && vite build -c vite-docs.config.ts",
+        "web:preview": "vite preview -c vite-docs.config.ts",
         "lib:build": "rm -rf dist && vue-tsc && vite build -c vite-lib.config.ts",
         "test:watch": "vitest --config ./vitest.config.ts",
         "test": "vitest run --config ./vitest.config.ts",
