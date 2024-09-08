@@ -1,0 +1,13 @@
+<div>
+    <button
+        ref="buttonBasicExample"
+        type="button"
+        class="my-button"
+        @click="visibleBasicExample = !visibleBasicExample"
+    >
+        Click me
+    </button>
+    <MyDropdown :visible="visibleBasicExample" :link="buttonBasicExample">
+        <div className="my-dropdown">My first dropdown</div>
+    </MyDropdown>
+</div>
