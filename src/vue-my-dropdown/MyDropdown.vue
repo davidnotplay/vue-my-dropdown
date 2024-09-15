@@ -76,6 +76,7 @@ function clickoutEvent(evt: Event) {
  */
 function close() {
     window.removeEventListener('resize', setDropdownStyles);
+    document.removeEventListener('click', clickoutEvent);
 }
 
 // Watchers

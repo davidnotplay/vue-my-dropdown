@@ -264,6 +264,55 @@ describe('Clickout event', () => {
             expect(screen.getByText(/Dropdown message/))[prefix].toBeVisible();
         });
     });
+
+    it('deletes the clickout event when the dropdown is closed', async () => {
+        const DeleteClickoutComponent = defineComponent({
+            components: {Dropdown},
+            data() {
+                return {
+                    visible: false,
+                    anchor: null as null | HTMLElement,
+                    clickoutClicks: 0,
+                };
+            },
+            mounted() {
+                this.anchor = this.$refs.anchor as HTMLElement;
+            },
+            methods: {
+                clickout() {
+                    this.visible = false;
+                    this.clickoutClicks++;
+                },
+            },
+            template: `
+            <div>
+                <div data-testid="clickout">clickout {{clickoutClicks}}</div>
+                <button
+                    data-testid="anchor"
+                    type="button" ref="anchor"
+                    @click="visible = true"
+                >
+                    Click here
+                </button>
+                <Dropdown :anchor="anchor" :visible="visible" @clickout="clickout()">
+                    <div data-testid="inner">Dropdown message</div>
+                </Dropdown>
+            </div>`,
+        });
+
+        render(DeleteClickoutComponent);
+        await fireEvent.click(screen.getByTestId('clickout'));
+        await nextTick();
+        await fireEvent.click(screen.getByTestId('anchor'));
+        await nextTick();
+        await fireEvent.click(screen.getByTestId('clickout'));
+        await nextTick();
+        await fireEvent.click(screen.getByTestId('clickout'));
+        await nextTick();
+        await fireEvent.click(screen.getByTestId('clickout'));
+        await nextTick();
+        expect(screen.getByTestId('clickout')).toHaveTextContent(/clickout 1/);
+    });
 });
 
 describe('Animation property', () => {
