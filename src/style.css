@@ -31,21 +31,85 @@ h2 {
     @apply bg-primary hover:bg-primary-hover text-white font-bold py-2 px-4 rounded;
 }
 
+.my-button-corner {
+    @apply relative;
+}
+
+.my-button-corner::after {
+    content: '';
+    @apply inline-block size-[.5rem] bg-red-900 absolute rounded;
+}
+
+.my-button-corner.my-button-corner-h-left::after {
+    @apply left-0;
+}
+
+.my-button-corner.my-button-corner-h-center::after {
+    @apply left-2/4;
+}
+
+.my-button-corner.my-button-corner-h-right::after {
+    @apply right-0;
+}
+
+.my-button-corner.my-button-corner-v-top::after {
+    @apply top-0;
+}
+
+.my-button-corner.my-button-corner-v-center::after {
+    @apply top-2/4;
+}
+
+.my-button-corner.my-button-corner-v-bottom::after {
+    @apply bottom-0;
+}
+
 .my-content {
     @apply relative top-[40vh] bg-white p-4;
 }
 
-.my-pre {
+.my-prism {
     @apply border bg-gray-300;
+    @apply m-0 !important;
 }
 
 .my-example-layout {
     @apply grid grid-cols-2 gap-4; /* Use grid layout with 2 equal columns and a gap */
 }
 
-.my-example-layout > pre {
-    @apply m-0;
-}
 .my-dropdown {
     @apply bg-white shadow-lg rounded-md p-4 border border-gray-200;
+}
+
+.my-dd-corner {
+    @apply relative;
+}
+
+.my-dd-corner::after {
+    content: '';
+    @apply inline-block size-[.5rem] bg-red-900 absolute rounded;
+}
+
+.my-dd-corner.my-dd-corner-h-left::after {
+    @apply left-0;
+}
+
+.my-dd-corner.my-dd-corner-h-center::after {
+    @apply left-2/4;
+}
+
+.my-dd-corner.my-dd-corner-h-right::after {
+    @apply right-0;
+}
+
+.my-dd-corner.my-dd-corner-v-top::after {
+    @apply top-0;
+}
+
+.my-dd-corner.my-dd-corner-v-center::after {
+    @apply top-2/4;
+}
+
+.my-dd-corner.my-dd-corner-v-bottom::after {
+    @apply bottom-0;
 }

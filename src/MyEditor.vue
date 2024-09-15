@@ -5,7 +5,6 @@ import 'prismjs/components/prism-bash';
 import 'prismjs/components/prism-markup';
 import {computed} from 'vue';
 
-// @TODO add bash
 export type Languages = 'html' | 'javascript' | 'shell';
 
 type MyEditorProps = {
@@ -13,6 +12,7 @@ type MyEditorProps = {
     code: string;
 };
 
+// @TODO parse the code to improve the code visualization.
 const props = defineProps<MyEditorProps>();
 
 function highlightJsCode(code: string): string {
@@ -61,5 +61,5 @@ const codeClass = computed<string>(() => {
 </script>
 
 <template>
-    <pre class="my-pre"><code :class="codeClass" v-html="code" /></pre>
+    <pre class="my-prism"><code :class="codeClass" v-html="code" /></pre>
 </template>

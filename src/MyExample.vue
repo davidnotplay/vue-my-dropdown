@@ -10,7 +10,7 @@ type ExampleProps = {
     language: Languages;
 };
 
-defineSlots<{default: Slot}>();
+const slots = defineSlots<{default: Slot; description: Slot}>();
 
 const props = defineProps<ExampleProps>();
 </script>
@@ -18,6 +18,9 @@ const props = defineProps<ExampleProps>();
 <template>
     <div>
         <h2>{{ props.title }}</h2>
+        <p v-show="slots.description">
+            <slot name="description" />
+        </p>
         <div class="my-example-layout">
             <MyEditor :code="props.code" :language="props.language" />
             <div><slot name="default" /></div>
