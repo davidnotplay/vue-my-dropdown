@@ -33,17 +33,17 @@ it('hides `dropdown` slot by default', () => {
         components: {Dropdown},
         data() {
             return {
-                link: null as null | HTMLElement,
+                anchor: null as null | HTMLElement,
             };
         },
 
         mounted() {
-            this.link = this.$refs.link as HTMLElement;
+            this.anchor = this.$refs.anchor as HTMLElement;
         },
         template: `
         <div>
-            <button type="button" ref="link">Click here</button>
-            <Dropdown :link="link">Dropdown message</Dropdown>
+            <button type="button" ref="anchor">Click here</button>
+            <Dropdown :anchor="anchor">Dropdown message</Dropdown>
         </div>`,
     });
 
@@ -56,17 +56,17 @@ it('shows `dropdown` slot when the `visible` property is true', () => {
         components: {Dropdown},
         data() {
             return {
-                link: null as null | HTMLElement,
+                anchor: null as null | HTMLElement,
             };
         },
 
         mounted() {
-            this.link = this.$refs.link as HTMLElement;
+            this.anchor = this.$refs.anchor as HTMLElement;
         },
         template: `
         <div>
-            <button type="button" ref="link">Click here</button>
-            <Dropdown :link="link" visible>Dropdown message</Dropdown>
+            <button type="button" ref="anchor">Click here</button>
+            <Dropdown :anchor="anchor" visible>Dropdown message</Dropdown>
         </div>`,
     });
 
@@ -79,17 +79,17 @@ it('executes `open` function when the initial value of `visible` property is tru
         components: {Dropdown},
         data() {
             return {
-                link: null as null | HTMLElement,
+                anchor: null as null | HTMLElement,
             };
         },
 
         mounted() {
-            this.link = this.$refs.link as HTMLElement;
+            this.anchor = this.$refs.anchor as HTMLElement;
         },
         template: `
         <div>
-            <button type="button" ref="link">Click here</button>
-            <Dropdown :link="link" visible>Dropdown message</Dropdown>
+            <button type="button" ref="anchor">Click here</button>
+            <Dropdown :anchor="anchor" visible>Dropdown message</Dropdown>
         </div>`,
     });
 
@@ -104,17 +104,17 @@ it('executes `open` function when the `visible` property changes to `true` value
         data() {
             return {
                 visible: false,
-                link: null as null | HTMLElement,
+                anchor: null as null | HTMLElement,
             };
         },
 
         mounted() {
-            this.link = this.$refs.link as HTMLElement;
+            this.anchor = this.$refs.anchor as HTMLElement;
         },
         template: `
         <div>
-            <button type="button" ref="link" @click="visible = true">Click here</button>
-            <Dropdown :link="link" :visible="visible">Dropdown message</Dropdown>
+            <button type="button" ref="anchor" @click="visible = true">Click here</button>
+            <Dropdown :anchor="anchor" :visible="visible">Dropdown message</Dropdown>
         </div>`,
     });
 
@@ -131,17 +131,17 @@ it('adds the resize event when the dropdown is opened', async () => {
         data() {
             return {
                 visible: true,
-                link: null as null | HTMLElement,
+                anchor: null as null | HTMLElement,
             };
         },
 
         mounted() {
-            this.link = this.$refs.link as HTMLElement;
+            this.anchor = this.$refs.anchor as HTMLElement;
         },
         template: `
         <div>
-            <button type="button" ref="link" @click="visible = true">Click here</button>
-            <Dropdown :link="link" :visible="visible">Dropdown message</Dropdown>
+            <button type="button" ref="anchor" @click="visible = true">Click here</button>
+            <Dropdown :anchor="anchor" :visible="visible">Dropdown message</Dropdown>
         </div>`,
     });
 
@@ -160,17 +160,17 @@ it('removes the resize event when the dropdown is closed', async () => {
         data() {
             return {
                 visible: true,
-                link: null as null | HTMLElement,
+                anchor: null as null | HTMLElement,
             };
         },
 
         mounted() {
-            this.link = this.$refs.link as HTMLElement;
+            this.anchor = this.$refs.anchor as HTMLElement;
         },
         template: `
         <div>
-            <button type="button" ref="link" @click="visible = false">Click here</button>
-            <Dropdown :link="link" :visible="visible">Dropdown message</Dropdown>
+            <button type="button" ref="anchor" @click="visible = false">Click here</button>
+            <Dropdown :anchor="anchor" :visible="visible">Dropdown message</Dropdown>
         </div>`,
     });
 
@@ -184,22 +184,22 @@ it('removes the resize event when the dropdown is closed', async () => {
     ).toBe(true);
 });
 
-it('displays console.warn when link property is not HTML element', async () => {
+it('displays console.warn when anchor property is not HTML element', async () => {
     const TestComponent = defineComponent({
         components: {Dropdown},
         data() {
             return {
                 visible: true,
-                link: null as HTMLElement | null,
+                anchor: null as HTMLElement | null,
             };
         },
         mounted() {
-            this.link = this.$refs.link as HTMLElement;
+            this.anchor = this.$refs.anchor as HTMLElement;
         },
         template: `
         <div>
-            <button type="button" ref="link">Click here</button>
-            <Dropdown :link="3" visible>Dropdown message</Dropdown>
+            <button type="button" ref="anchor">Click here</button>
+            <Dropdown :anchor="3" visible>Dropdown message</Dropdown>
         </div>`,
     });
 
@@ -214,23 +214,23 @@ describe('Clickout event', () => {
         data() {
             return {
                 visible: false,
-                link: null as null | HTMLElement,
+                anchor: null as null | HTMLElement,
             };
         },
         mounted() {
-            this.link = this.$refs.link as HTMLElement;
+            this.anchor = this.$refs.anchor as HTMLElement;
         },
         template: `
         <div>
             <div data-testid="clickout">clickout</div>
             <button
-                data-testid="link"
-                type="button" ref="link"
+                data-testid="anchor"
+                type="button" ref="anchor"
                 @click="visible = true"
             >
                 Click here
             </button>
-            <Dropdown :link="link" :visible="visible" @clickout="visible = false">
+            <Dropdown :anchor="anchor" :visible="visible" @clickout="visible = false">
                 <div data-testid="inner">Dropdown message</div>
             </Dropdown>
         </div>`,
@@ -247,7 +247,7 @@ describe('Clickout event', () => {
             expected: true,
         },
         {
-            testId: 'link',
+            testId: 'anchor',
             expected: false,
         },
         {
@@ -276,16 +276,16 @@ describe('Animation property', () => {
             data() {
                 return {
                     visible: true,
-                    link: null as HTMLElement | null,
+                    anchor: null as HTMLElement | null,
                 };
             },
             mounted() {
-                this.link = this.$refs.link as HTMLElement;
+                this.anchor = this.$refs.anchor as HTMLElement;
             },
             template: `
             <div>
-                <button type="button" ref="link">Click here</button>
-                <Dropdown :link="link" visible>
+                <button type="button" ref="anchor">Click here</button>
+                <Dropdown :anchor="anchor" visible>
                     <template>
                         Dropdown message {{animation}}
                     </template>
@@ -310,16 +310,16 @@ describe('Animation property', () => {
             data() {
                 return {
                     visible: true,
-                    link: null as HTMLElement | null,
+                    anchor: null as HTMLElement | null,
                 };
             },
             mounted() {
-                this.link = this.$refs.link as HTMLElement;
+                this.anchor = this.$refs.anchor as HTMLElement;
             },
             template: `
             <div>
-                <button type="button" ref="link">Click here</button>
-                <Dropdown :link="link" visible>
+                <button type="button" ref="anchor">Click here</button>
+                <Dropdown :anchor="anchor" visible>
                     <template>
                         Dropdown message {{animation}}
                     </template>
@@ -344,16 +344,16 @@ describe('Animation property', () => {
             data() {
                 return {
                     visible: true,
-                    link: null as HTMLElement | null,
+                    anchor: null as HTMLElement | null,
                 };
             },
             mounted() {
-                this.link = this.$refs.link as HTMLElement;
+                this.anchor = this.$refs.anchor as HTMLElement;
             },
             template: `
             <div>
-                <button type="button" ref="link">Click here</button>
-                <Dropdown :link="link" visible animation="custom-animation">
+                <button type="button" ref="anchor">Click here</button>
+                <Dropdown :anchor="anchor" visible animation="custom-animation">
                     <template>
                         Dropdown message {{animation}}
                     </template>
@@ -379,17 +379,17 @@ it('triggers "open" event when the dropdown is opened', async () => {
         data() {
             return {
                 visible: false,
-                link: null as HTMLElement | null,
+                anchor: null as HTMLElement | null,
                 isOpened: false,
             };
         },
         mounted() {
-            this.link = this.$refs.link as HTMLElement;
+            this.anchor = this.$refs.anchor as HTMLElement;
         },
         template: `
             <div>
-                <button type="button" ref="link" @click="visible = true">Click here</button>
-                <Dropdown :link="link" :visible="visible" @open="isOpened = true">
+                <button type="button" ref="anchor" @click="visible = true">Click here</button>
+                <Dropdown :anchor="anchor" :visible="visible" @open="isOpened = true">
                     <template>Dropdown message</template>
                 </Dropdown>
                 <div v-show="isOpened">Dropdown opened</div>
@@ -414,17 +414,17 @@ it('triggers "close" event when the dropdown is closed', async () => {
         data() {
             return {
                 visible: true,
-                link: null as HTMLElement | null,
+                anchor: null as HTMLElement | null,
                 isClosed: false,
             };
         },
         mounted() {
-            this.link = this.$refs.link as HTMLElement;
+            this.anchor = this.$refs.anchor as HTMLElement;
         },
         template: `
             <div>
-                <button type="button" ref="link" @click="visible = false">Click here</button>
-                <Dropdown :link="link" :visible="visible" @close="isClosed = true">
+                <button type="button" ref="anchor" @click="visible = false">Click here</button>
+                <Dropdown :anchor="anchor" :visible="visible" @close="isClosed = true">
                     <template>Dropdown message</template>
                 </Dropdown>
                 <div v-show="isClosed">Dropdown opened</div>

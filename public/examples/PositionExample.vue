@@ -3,7 +3,7 @@ import {computed, ref} from 'vue';
 import {MyDropdown, Position, Horizontal, Vertical} from '../../src/vue-my-dropdown';
 
 const visible = ref<boolean>(false);
-const link = ref<HTMLElement | null>(null);
+const anchor = ref<HTMLElement | null>(null);
 const position = ref<Position>(['right', 'top', 'left', 'top']);
 
 function change(ev: Event, index: number): void {
@@ -80,14 +80,19 @@ const myDDCornerClass = computed<Array<string>>(() => {
         </div>
     </div>
     <button
-        ref="link"
+        ref="anchor"
         type="button"
         :class="['my-button', myBtnCornerClass]"
         @click="visible = !visible"
     >
         Click me
     </button>
-    <MyDropdown :link="link" :visible="visible" :position="position" @clickout="visible = false">
+    <MyDropdown
+        :anchor="anchor"
+        :visible="visible"
+        :position="position"
+        @clickout="visible = false"
+    >
         <div :class="['my-dropdown', myDDCornerClass]">Click out to close the dropdown</div>
     </MyDropdown>
     <p>

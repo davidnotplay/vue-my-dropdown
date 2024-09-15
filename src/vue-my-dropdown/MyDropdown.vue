@@ -4,7 +4,7 @@ import {onMounted, ref, watch, nextTick} from 'vue';
 import {clickout, createStyles} from './helpers.ts';
 
 export type MyDropdownProps = {
-    link: HTMLElement | null;
+    anchor: HTMLElement | null;
     visible?: boolean;
     position?: Position;
     animation?: Animation;
@@ -38,13 +38,13 @@ defineSlots<{
  * Set the dropdown style properties.
  */
 function setDropdownStyles() {
-    if (props.link !== null && $dropdown.value !== null) {
-        if (props.link instanceof HTMLElement) {
-            ddStyles.value = createStyles(props.link, $dropdown.value, props.position);
+    if (props.anchor !== null && $dropdown.value !== null) {
+        if (props.anchor instanceof HTMLElement) {
+            ddStyles.value = createStyles(props.anchor, $dropdown.value, props.position);
             return;
         }
 
-        console.warn(`Link property is not HTML element.`);
+        console.warn(`Anchor property is not HTML element.`);
     }
 }
 
@@ -63,9 +63,9 @@ function open() {
  */
 function clickoutEvent(evt: Event) {
     if (
-        props.link !== null &&
+        props.anchor !== null &&
         $dropdown.value !== null &&
-        clickout(evt.target as HTMLElement, props.link, $dropdown.value)
+        clickout(evt.target as HTMLElement, props.anchor, $dropdown.value)
     ) {
         emit('clickout');
     }

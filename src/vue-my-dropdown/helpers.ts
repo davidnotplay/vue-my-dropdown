@@ -13,43 +13,43 @@ type NormalizeRect = Record<NormalizeRectKey, number>;
 /**
  * Creates the styles used by the dropdown element.
  *
- * @param $link Link element used to calculate the dropdown position.
+ * @param $anchor Anchor element used to calculate the dropdown position.
  * @param $dropdown Dropdown element used to calculate its own position.
- * @param position Position keys determining how the dropdown is positioned relative to the link.
+ * @param position Position keys determining how the dropdown is positioned relative to the anchor.
  * @returns An object representing the CSS styles for positioning the dropdown.
  */
 export function createStyles(
-    $link: HTMLElement,
+    $anchor: HTMLElement,
     $dropdown: HTMLElement,
     position: Position
 ): DropdownStyle {
     const ddCorner = {top: 0, left: 0};
-    const linkRect = normalizeRect($link.getBoundingClientRect());
-    const offsetParent = $link.offsetParent as Element;
+    const anchorRect = normalizeRect($anchor.getBoundingClientRect());
+    const offsetParent = $anchor.offsetParent as Element;
     const ddRect = getSize($dropdown);
 
     const parentRect = normalizeRect(offsetParent.getBoundingClientRect());
-    ddCorner.left = linkRect.left - parentRect.left;
-    ddCorner.top = linkRect.top - parentRect.top;
+    ddCorner.left = anchorRect.left - parentRect.left;
+    ddCorner.top = anchorRect.top - parentRect.top;
     const origin = {h: 'left', v: 'top'};
 
     switch (position[0].toLowerCase()) {
         case 'right':
-            ddCorner.left += linkRect.width;
+            ddCorner.left += anchorRect.width;
             break;
 
         case 'center':
-            ddCorner.left += linkRect.width / 2;
+            ddCorner.left += anchorRect.width / 2;
             break;
     }
 
     switch (position[1].toLowerCase()) {
         case 'center':
-            ddCorner.top += linkRect.height / 2;
+            ddCorner.top += anchorRect.height / 2;
             break;
 
         case 'bottom':
-            ddCorner.top += linkRect.height;
+            ddCorner.top += anchorRect.height;
             break;
     }
 
@@ -86,18 +86,22 @@ export function createStyles(
 }
 
 /**
- * Check if the clicked item is neither the link nor the dropdown,
- * nor a child element of either the link or the dropdown.
+ * Check if the clicked item is neither the anchor nor the dropdown,
+ * nor a child element of either the anchor or the dropdown.
  *
  * @param $eleClicked Element that is clicked.
- * @param $link The link element to check.
+ * @param $anchor The anchor element to check.
  * @param $dd Dropdown The dropdown element to check.
- * @return True if the clicked item is outside the link and dropdown; false otherwise.
+ * @return True if the clicked item is outside the anchor and dropdown; false otherwise.
  */
-export function clickout($eleClicked: HTMLElement, $link: HTMLElement, $dd: HTMLElement): boolean {
+export function clickout(
+    $eleClicked: HTMLElement,
+    $anchor: HTMLElement,
+    $dd: HTMLElement
+): boolean {
     return (
-        $link != $eleClicked &&
-        !$link.contains($eleClicked) &&
+        $anchor != $eleClicked &&
+        !$anchor.contains($eleClicked) &&
         $dd != $eleClicked &&
         !$dd.contains($eleClicked)
     );

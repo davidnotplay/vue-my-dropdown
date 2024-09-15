@@ -8,7 +8,7 @@ type Styles = {[key: string]: string};
 function createComponent(containerStyles: Styles) {
     const template =
         '<div :style="containerStyles" id="container">' +
-        '<span id="link">link</span>' +
+        '<span id="anchor">anchor</span>' +
         '<span id="dropdown">dropdown</span>' +
         '</div>';
     return {
@@ -21,8 +21,8 @@ function createComponent(containerStyles: Styles) {
     };
 }
 
-function getLink() {
-    return document.querySelector('body #link');
+function getAnchor() {
+    return document.querySelector('body #anchor');
 }
 
 function getDropdown() {
@@ -40,14 +40,14 @@ describe('Function createStyles', () => {
         expected: DropdownStyle;
         position: Position;
         offsetParentSelector: string;
-        linkRect: Partial<DOMRect>;
+        anchorRect: Partial<DOMRect>;
         ddRect: Partial<DOMRect>;
         offParentRect: Partial<DOMRect>;
     }[] = [
         {
             name: `Situation: 'left', 'top', 'left', 'top'. Default`,
 
-            linkRect: {width: 100, height: 100, left: 200, top: 200},
+            anchorRect: {width: 100, height: 100, left: 200, top: 200},
             containerStyles: {display: 'block', width: '100%', height: '100%'},
 
             position: ['left', 'top', 'left', 'top'],
@@ -65,7 +65,7 @@ describe('Function createStyles', () => {
         {
             name: `Situation: 'center', 'top', 'left', 'top'. Default`,
 
-            linkRect: {width: 100, height: 100, left: 200, top: 200},
+            anchorRect: {width: 100, height: 100, left: 200, top: 200},
             containerStyles: {display: 'block', width: '100%', height: '100%'},
 
             position: ['center', 'top', 'left', 'top'],
@@ -83,7 +83,7 @@ describe('Function createStyles', () => {
         {
             name: `Situation: 'right', 'top', 'left', 'top'. Default`,
 
-            linkRect: {width: 100, height: 100, left: 200, top: 200},
+            anchorRect: {width: 100, height: 100, left: 200, top: 200},
             containerStyles: {display: 'block', width: '100%', height: '100%'},
 
             position: ['right', 'top', 'left', 'top'],
@@ -102,7 +102,7 @@ describe('Function createStyles', () => {
         {
             name: `Situation: 'left', 'center', 'left', 'top'. Default`,
 
-            linkRect: {width: 100, height: 100, left: 200, top: 200},
+            anchorRect: {width: 100, height: 100, left: 200, top: 200},
             containerStyles: {display: 'block', width: '100%', height: '100%'},
 
             position: ['left', 'center', 'left', 'top'],
@@ -120,7 +120,7 @@ describe('Function createStyles', () => {
         {
             name: `Situation: 'left', 'bottom', 'left', 'top'. Default`,
 
-            linkRect: {width: 100, height: 100, left: 200, top: 200},
+            anchorRect: {width: 100, height: 100, left: 200, top: 200},
             containerStyles: {display: 'block', width: '100%', height: '100%'},
 
             position: ['left', 'bottom', 'left', 'top'],
@@ -139,7 +139,7 @@ describe('Function createStyles', () => {
         {
             name: `Situation: 'left', 'top', 'center', 'top'. Default`,
 
-            linkRect: {width: 100, height: 100, left: 200, top: 200},
+            anchorRect: {width: 100, height: 100, left: 200, top: 200},
             containerStyles: {display: 'block', width: '100%', height: '100%'},
 
             position: ['left', 'top', 'center', 'top'],
@@ -157,7 +157,7 @@ describe('Function createStyles', () => {
         {
             name: `Situation: 'left', 'top', 'right', 'top'. Default`,
 
-            linkRect: {width: 100, height: 100, left: 200, top: 200},
+            anchorRect: {width: 100, height: 100, left: 200, top: 200},
             containerStyles: {display: 'block', width: '100%', height: '100%'},
 
             position: ['left', 'top', 'right', 'top'],
@@ -176,7 +176,7 @@ describe('Function createStyles', () => {
         {
             name: `Situation: 'left', 'top', 'left', 'center'. Default`,
 
-            linkRect: {width: 100, height: 100, left: 200, top: 200},
+            anchorRect: {width: 100, height: 100, left: 200, top: 200},
             containerStyles: {display: 'block', width: '100%', height: '100%'},
 
             position: ['left', 'top', 'left', 'center'],
@@ -194,7 +194,7 @@ describe('Function createStyles', () => {
         {
             name: `Situation: 'left', 'top', 'left', 'bottom'. Default`,
 
-            linkRect: {width: 100, height: 100, left: 200, top: 200},
+            anchorRect: {width: 100, height: 100, left: 200, top: 200},
             containerStyles: {display: 'block', width: '100%', height: '100%'},
 
             position: ['left', 'top', 'left', 'bottom'],
@@ -213,7 +213,7 @@ describe('Function createStyles', () => {
         {
             name: `Situation: 'left', 'top', 'left', 'top'. Absolute`,
 
-            linkRect: {width: 100, height: 100, left: 200, top: 200},
+            anchorRect: {width: 100, height: 100, left: 200, top: 200},
             containerStyles: {
                 display: 'block',
                 width: '100%',
@@ -236,7 +236,7 @@ describe('Function createStyles', () => {
         {
             name: `Situation: 'left', 'top', 'left', 'top'. Fixed`,
 
-            linkRect: {width: 100, height: 100, left: 200, top: 200},
+            anchorRect: {width: 100, height: 100, left: 200, top: 200},
             containerStyles: {
                 display: 'block',
                 width: '100%',
@@ -262,12 +262,12 @@ describe('Function createStyles', () => {
         it(`retrieves the position in stituation ${situation.name}`, async () => {
             render(createComponent(situation.containerStyles));
 
-            const $link = getLink() as HTMLElement;
+            const $anchor = getAnchor() as HTMLElement;
             const $dd = getDropdown() as HTMLElement;
 
             window.HTMLElement.prototype.getBoundingClientRect = function () {
-                if (this == $link) {
-                    return situation.linkRect as DOMRect;
+                if (this == $anchor) {
+                    return situation.anchorRect as DOMRect;
                 }
 
                 if (this == document.querySelector(situation.offsetParentSelector)) {
@@ -296,7 +296,7 @@ describe('Function createStyles', () => {
             });
 
             // screen.debug();
-            expect(createStyles($link, $dd, situation.position)).toEqual(situation.expected);
+            expect(createStyles($anchor, $dd, situation.position)).toEqual(situation.expected);
         });
     });
 });
@@ -309,10 +309,10 @@ describe('Function clickout', () => {
 
     $container.innerHTML = `<div data-testid="main-container">
         <div data-testid="clickout-top" style="height:100px; width:100%">click out top</div>
-        <div data-testid="link" style="height:100px; width:100%">
-            link
-            <div data-testid="link-inner" style="height:100px; width:100%; margin:2%">
-                link inner
+        <div data-testid="anchor" style="height:100px; width:100%">
+            anchor
+            <div data-testid="anchor-inner" style="height:100px; width:100%; margin:2%">
+                anchor inner
             </div>
         </div>
         <div data-testid="dropdown" style="height:100px; width:100%">
@@ -325,8 +325,8 @@ describe('Function clickout', () => {
     </div>`;
 
     const $clickoutTop = getByTestId($container, 'clickout-top');
-    const $link = getByTestId($container, 'link');
-    const $linkInner = getByTestId($container, 'link-inner');
+    const $anchor = getByTestId($container, 'anchor');
+    const $anchorInner = getByTestId($container, 'anchor-inner');
     const $dropdown = getByTestId($container, 'dropdown');
     const $ddInner = getByTestId($container, 'dropdown-inner');
     const $clickoutBottom = getByTestId($container, 'clickout-bottom');
@@ -337,11 +337,11 @@ describe('Function clickout', () => {
             expected: true,
         },
         {
-            $element: $link,
+            $element: $anchor,
             expected: false,
         },
         {
-            $element: $linkInner,
+            $element: $anchorInner,
             expected: false,
         },
         {
@@ -358,7 +358,7 @@ describe('Function clickout', () => {
         },
     ].forEach(({$element, expected}, i) => {
         it(`clicks out of dropdown: Situtation ${i + 1}`, () => {
-            expect(clickout($element, $link, $dropdown)).toBe(expected);
+            expect(clickout($element, $anchor, $dropdown)).toBe(expected);
         });
     });
 });

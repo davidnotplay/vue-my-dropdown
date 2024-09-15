@@ -1,18 +1,15 @@
 <script setup lang="ts">
 import {onMounted, ref} from 'vue';
-import MyDropdown from './vue-my-dropdown/MyDropdown.vue';
 import MyExample from './MyExample.vue';
-import MyEditor, {Languages} from './MyEditor.vue';
+import MyEditor from './MyEditor.vue';
+import BasicExample from '../public/examples/BasicExample.vue';
+import ClickoutExample from '../public/examples/ClickoutExample.vue';
+import PositionExample from '../public/examples/PositionExample.vue';
 
-type Code = {
-    language: Languages;
-    code: string;
-};
-
-const usageCode = ref<Code>({language: 'javascript', code: ''});
-const buttonBasicExample = ref<HTMLElement | null>(null);
-const visibleBasicExample = ref<boolean>(false);
-const htmlBasicExample = ref<Code>({language: 'html', code: ''});
+const usageCode = ref<string>('');
+const basicExampleCode = ref<string>('');
+const clickoutExampleCode = ref<string>('');
+const positionExampleCode = ref<string>('');
 
 onMounted(async () => {
     const htmls = [
@@ -21,17 +18,21 @@ onMounted(async () => {
             state: usageCode,
         },
         {
-            url: 'examples/basic-example.html',
-            state: htmlBasicExample,
+            url: 'examples/BasicExample.vue',
+            state: basicExampleCode,
+        },
+        {
+            url: 'examples/ClickoutExample.vue',
+            state: clickoutExampleCode,
+        },
+        {
+            url: 'examples/PositionExample.vue',
+            state: positionExampleCode,
         },
     ];
 
     for (const {url, state} of htmls) {
-        const response = await fetch(`${url}`);
-        state.value = {
-            code: await response.text(),
-            language: state.value.language,
-        };
+        state.value = await (await fetch(`${url}`)).text();
     }
 });
 </script>
@@ -59,29 +60,22 @@ onMounted(async () => {
         You use node and npm to install vue-my-dropdown lib.
         <MyEditor language="shell" code="npm install --save vue-my-dropdown" />
         Now you can import and use vue-my-dropdown in your project.
-        <MyEditor :language="usageCode.language" :code="usageCode.code" />
+        <MyEditor :code="usageCode" language="javascript" />
 
         <h1>Examples</h1>
-        <MyExample
-            title="Basic example"
-            :code="htmlBasicExample.code"
-            :language="htmlBasicExample.language"
-        >
-            <template #default>
-                <div>
-                    <button
-                        ref="buttonBasicExample"
-                        type="button"
-                        class="my-button"
-                        @click="visibleBasicExample = !visibleBasicExample"
-                    >
-                        Click me
-                    </button>
-                    <MyDropdown :visible="visibleBasicExample" :link="buttonBasicExample">
-                        <div className="my-dropdown">My first dropdown</div>
-                    </MyDropdown>
-                </div>
+        <MyExample title="Basic example" language="javascript" :code="basicExampleCode">
+            <BasicExample />
+        </MyExample>
+        <MyExample title="Clickout example" language="javascript" :code="clickoutExampleCode">
+            <ClickoutExample />
+            <template #description>
+                The clickout event is triggered when the user clicks out of the Dropdown or the
+                button. You can use it, for example, to close the dropdown when clicks in of the
+                document.
             </template>
+        </MyExample>
+        <MyExample title="Position example" language="javascript" :code="positionExampleCode">
+            <PositionExample />
         </MyExample>
     </div>
 </template>
