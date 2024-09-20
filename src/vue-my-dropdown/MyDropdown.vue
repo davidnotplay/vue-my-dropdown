@@ -24,9 +24,13 @@ const props = withDefaults(defineProps<MyDropdownProps>(), {
 // Animation time
 const animationTime = '0.3s';
 // Elements
-const $dropdown = ref(null);
+const $dropdown = ref<HTMLElement | null>(null);
 // Event
-const emit = defineEmits(['clickout', 'open', 'close']);
+const emit = defineEmits<{
+    clickout: [ev: Event];
+    open: [];
+    close: [];
+}>();
 // Internal states
 const ddStyles = ref<{[key: string]: string}>({});
 // Slots
@@ -67,7 +71,7 @@ function clickoutEvent(evt: Event) {
         $dropdown.value !== null &&
         clickout(evt.target as HTMLElement, props.anchor, $dropdown.value)
     ) {
-        emit('clickout');
+        emit('clickout', evt);
     }
 }
 

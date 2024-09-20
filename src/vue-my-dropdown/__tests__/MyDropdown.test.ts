@@ -301,8 +301,6 @@ describe('Clickout event', () => {
         });
 
         render(DeleteClickoutComponent);
-        await fireEvent.click(screen.getByTestId('clickout'));
-        await nextTick();
         await fireEvent.click(screen.getByTestId('anchor'));
         await nextTick();
         await fireEvent.click(screen.getByTestId('clickout'));
@@ -312,6 +310,51 @@ describe('Clickout event', () => {
         await fireEvent.click(screen.getByTestId('clickout'));
         await nextTick();
         expect(screen.getByTestId('clickout')).toHaveTextContent(/clickout 1/);
+    });
+
+    it('sends the event object', async () => {
+        const DeleteClickoutComponent = defineComponent({
+            components: {Dropdown},
+            data() {
+                return {
+                    visible: false,
+                    anchor: null as null | HTMLElement,
+                    text: '',
+                };
+            },
+            mounted() {
+                this.anchor = this.$refs.anchor as HTMLElement;
+            },
+            methods: {
+                clickout(evt: Event) {
+                    this.visible = false;
+                    this.text = (evt.target as HTMLElement).textContent as string;
+                },
+            },
+            template: `
+            <div>
+                <div data-testid="clickout">the text of the button is "{{text}}"</div>
+                <button
+                    data-testid="anchor"
+                    type="button" ref="anchor"
+                    @click="visible = true"
+                >
+                   Button text
+                </button>
+                <Dropdown :anchor="anchor" :visible="visible" @clickout="clickout($event)">
+                    <div data-testid="inner">Dropdown message</div>
+                </Dropdown>
+            </div>`,
+        });
+
+        render(DeleteClickoutComponent);
+        await fireEvent.click(screen.getByTestId('anchor'));
+        await nextTick();
+        await fireEvent.click(screen.getByTestId('clickout'), {target: {textContent: 'test text'}});
+        await nextTick();
+        expect(screen.getByTestId('clickout')).toHaveTextContent(
+            /the text of the button is "test text"/
+        );
     });
 });
 
