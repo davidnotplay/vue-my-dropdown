@@ -5,11 +5,13 @@ import MyEditor from './MyEditor.vue';
 import BasicExample from '../public/examples/BasicExample.vue';
 import ClickoutExample from '../public/examples/ClickoutExample.vue';
 import PositionExample from '../public/examples/PositionExample.vue';
+import AnchorExample from '../public/examples/AnchorExample.vue';
 
 const usageCode = ref<string>('');
 const basicExampleCode = ref<string>('');
 const clickoutExampleCode = ref<string>('');
 const positionExampleCode = ref<string>('');
+const anchorExampleCode = ref<string>('');
 
 onMounted(async () => {
     const htmls = [
@@ -28,6 +30,10 @@ onMounted(async () => {
         {
             url: 'examples/PositionExample.vue',
             state: positionExampleCode,
+        },
+        {
+            url: 'examples/AnchorExample.vue',
+            state: anchorExampleCode,
         },
     ];
 
@@ -66,13 +72,24 @@ onMounted(async () => {
         <MyExample title="Basic example" language="javascript" :code="basicExampleCode">
             <BasicExample />
         </MyExample>
-        <MyExample title="Clickout example" language="javascript" :code="clickoutExampleCode">
+        <MyExample title="Clickout event" language="javascript" :code="clickoutExampleCode">
             <ClickoutExample />
             <template #description>
-                The clickout event is triggered when the user clicks out of the Dropdown or the
-                button. You can use it, for example, to close the dropdown when clicks in of the
-                document.
+                <p>
+                    The clickout event is triggered when the user clicks out of the Dropdown or the
+                    button. You can use it, for example, to close the dropdown when clicks in of the
+                    document.
+                </p>
             </template>
+        </MyExample>
+        <MyExample title="Anchor property" language="javascript" :code="anchorExampleCode">
+            <template #description>
+                <p>
+                    The anchor property is used select the HTML element where the dropdown is
+                    anchored
+                </p>
+            </template>
+            <AnchorExample />
         </MyExample>
         <MyExample title="Position example" language="javascript" :code="positionExampleCode">
             <PositionExample />

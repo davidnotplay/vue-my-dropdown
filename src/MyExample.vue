@@ -16,12 +16,12 @@ const props = defineProps<ExampleProps>();
 </script>
 
 <template>
-    <div>
+    <div class="my-example-layout">
         <h2>{{ props.title }}</h2>
-        <p v-show="slots.description">
+        <section v-show="slots.description">
             <slot name="description" />
-        </p>
-        <div class="my-example-layout">
+        </section>
+        <div>
             <MyEditor :code="props.code" :language="props.language" />
             <div><slot name="default" /></div>
         </div>

@@ -6,8 +6,8 @@
 
 :root {
     --color-text-color: #444;
-    --color-primary: #3490dc; /* Custom primary color */
-    --color-primary-hover: #2779bd; /* Custom primary hover color */
+    --color-primary: #3490dc;
+    --color-primary-hover: #2779bd;
 }
 
 html {
@@ -74,11 +74,19 @@ h2 {
 }
 
 .my-example-layout {
-    @apply grid grid-cols-2 gap-4; /* Use grid layout with 2 equal columns and a gap */
+    @apply my-10;
+}
+
+.my-example-layout > section {
+    @apply mt-2 mb-6;
+}
+
+.my-example-layout > div {
+    @apply grid grid-cols-2 gap-4;
 }
 
 .my-dropdown {
-    @apply bg-white shadow-lg rounded-md p-4 border border-gray-200;
+    @apply bg-white shadow-lg rounded-md p-4 border border-table-border-color;
 }
 
 .my-dd-corner {
@@ -112,4 +120,17 @@ h2 {
 
 .my-dd-corner.my-dd-corner-v-bottom::after {
     @apply bottom-0;
+}
+
+.my-anchors {
+    @apply grid grid-cols-4 gap-2 mb-4 border-collapse;
+}
+
+.my-anchors > div {
+    @apply text-center border border-table-border-color p-1 border-collapse;
+    cursor: pointer;
+}
+
+.my-anchors > div.my-active {
+    @apply bg-table-secondray-bg-color;
 }
