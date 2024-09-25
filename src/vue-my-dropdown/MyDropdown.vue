@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type {Slot} from 'vue';
-import {onMounted, ref, watch, nextTick} from 'vue';
-import {clickout, createStyles} from './helpers.ts';
+import {onMounted, ref, watch, nextTick, onUnmounted} from 'vue';
+import {createStyles} from './helpers.ts';
 
 export type MyDropdownProps = {
     anchor: HTMLElement | null;
@@ -27,7 +27,7 @@ const animationTime = '0.3s';
 const $dropdown = ref<HTMLElement | null>(null);
 // Event
 const emit = defineEmits<{
-    clickout: [ev: Event];
+    clickout: [ev: Event, clickInDD: boolean, clickInAnchor: boolean];
     open: [];
     close: [];
 }>();
@@ -62,17 +62,24 @@ function open() {
 }
 
 /**
+ * Check if the element clicked is the container or it is inside of container.
+ *
+ * @param $eleClicked The element clicked.
+ * @param $container The element where it checks if the element clicked is inside.
+ * @returns True if the element clicked is into container. False otherwise.
+ */
+function isClicked($eleClicked: HTMLElement, $container: HTMLElement | null): boolean {
+    return $container instanceof HTMLElement && $container.contains($eleClicked);
+}
+
+/**
     Event executed when user click out of the dropdown.
     The function triggers the clickout event.
  */
 function clickoutEvent(evt: Event) {
-    if (
-        props.anchor !== null &&
-        $dropdown.value !== null &&
-        clickout(evt.target as HTMLElement, props.anchor, $dropdown.value)
-    ) {
-        emit('clickout', evt);
-    }
+    const clickedIndAnchor = isClicked(evt.target as HTMLElement, props.anchor);
+    const clickedInDD = isClicked(evt.target as HTMLElement, $dropdown.value);
+    emit('clickout', evt, clickedInDD, clickedIndAnchor);
 }
 
 /**
@@ -104,6 +111,13 @@ watch(
 onMounted(() => {
     if (props.visible) {
         nextTick(open);
+    }
+});
+
+// @TODO test unmounted.
+onUnmounted(() => {
+    if (props.visible) {
+        close();
     }
 });
 </script>

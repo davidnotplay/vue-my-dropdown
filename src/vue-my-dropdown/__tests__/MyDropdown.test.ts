@@ -1,27 +1,29 @@
-// @TODO try to remove the eslint exception.
 /* eslint-disable vue/one-component-per-file */
 import {fireEvent, render, screen} from '@testing-library/vue';
 import Dropdown from '../../vue-my-dropdown/MyDropdown.vue';
 import {defineComponent, nextTick} from 'vue';
+import {MockInstance} from 'vitest';
 
-const addEventListenerMock = vi.fn();
-const removeEventListenerMock = vi.fn();
-const consoleWarn = vi.fn();
+let addEventListenerMock: MockInstance;
+let windowRemoveEventListenerMock: MockInstance;
+let docRemoveEventListenerMock: MockInstance;
+let consoleWarn: MockInstance;
 
 beforeEach(() => {
-    addEventListenerMock.mockReset();
-    removeEventListenerMock.mockReset();
-    consoleWarn.mockReset();
-
-    window.addEventListener = addEventListenerMock;
-    window.removeEventListener = removeEventListenerMock;
-    console.warn = consoleWarn;
+    consoleWarn = vi.spyOn(console, 'warn');
+    docRemoveEventListenerMock = vi.spyOn(document, 'removeEventListener');
+    addEventListenerMock = vi.spyOn(window, 'addEventListener');
+    windowRemoveEventListenerMock = vi.spyOn(window, 'removeEventListener');
 
     Object.defineProperty(HTMLElement.prototype, 'offsetParent', {
         get() {
             return document.querySelector('body');
         },
     });
+});
+
+afterEach(() => {
+    vi.restoreAllMocks();
 });
 
 it('exists', () => {
@@ -178,9 +180,9 @@ it('removes the resize event when the dropdown is closed', async () => {
     await nextTick();
     await fireEvent.click(screen.getByRole('button'));
     expect(
-        removeEventListenerMock.mock.calls.length === 1 &&
-            removeEventListenerMock.mock.calls[0][0] === 'resize' &&
-            typeof removeEventListenerMock.mock.calls[0][1] === 'function'
+        windowRemoveEventListenerMock.mock.calls.length === 1 &&
+            windowRemoveEventListenerMock.mock.calls[0][0] === 'resize' &&
+            typeof windowRemoveEventListenerMock.mock.calls[0][1] === 'function'
     ).toBe(true);
 });
 
@@ -215,10 +217,20 @@ describe('Clickout event', () => {
             return {
                 visible: false,
                 anchor: null as null | HTMLElement,
+                clickInAnchor: 0,
+                clickInDD: 0,
             };
         },
+
         mounted() {
             this.anchor = this.$refs.anchor as HTMLElement;
+        },
+
+        methods: {
+            clickout(_: Event, clickInAnchor: boolean, clickInDropdown: boolean): void {
+                this.clickInDD = clickInDropdown === true ? 1 : 2;
+                this.clickInAnchor = clickInAnchor === true ? 1 : 2;
+            },
         },
         template: `
         <div>
@@ -230,42 +242,53 @@ describe('Clickout event', () => {
             >
                 Click here
             </button>
-            <Dropdown :anchor="anchor" :visible="visible" @clickout="visible = false">
+            <Dropdown :anchor="anchor" :visible="visible" @clickout="(...args) => clickout(...args)">
                 <div data-testid="inner">Dropdown message</div>
             </Dropdown>
+
+            <div v-if="clickInAnchor === 1 && clickInDD === 2">
+                Clicked in the dropdown
+            </div>
+            <div v-if="clickInDD === 1&& clickInAnchor === 2">
+                Clicked in the anchor
+            </div>
+
+            <div v-if="clickInDD === 2 && clickInAnchor === 2">
+                Clicked out
+            </div>
         </div>`,
     });
 
     beforeEach(() => {
-        addEventListenerMock.mockReset();
-        removeEventListenerMock.mockReset();
+        vi.resetAllMocks();
     });
 
     [
         {
             testId: 'clickout',
-            expected: true,
+            expected: 'Clicked out',
         },
         {
             testId: 'anchor',
-            expected: false,
+            expected: 'Clicked in the anchor',
         },
         {
             testId: 'inner',
-            expected: false,
+            expected: 'Clicked in the dropdown',
         },
     ].forEach(({testId, expected}) => {
-        it(`triggers clickout event: Situation ${testId}`, async () => {
+        it(`retrieves the parameters from clickout event`, async () => {
             render(TestComponent);
             await fireEvent.click(screen.getByRole('button'));
+            await nextTick();
             await fireEvent.click(screen.getByTestId(testId));
             await nextTick();
-            const prefix = expected ? 'not' : 'is';
-            expect(screen.getByText(/Dropdown message/))[prefix].toBeVisible();
+            expect(screen.getByText(expected)).toBeVisible();
         });
     });
 
     it('deletes the clickout event when the dropdown is closed', async () => {
+        vi.restoreAllMocks();
         const DeleteClickoutComponent = defineComponent({
             components: {Dropdown},
             data() {
@@ -289,7 +312,8 @@ describe('Clickout event', () => {
                 <div data-testid="clickout">clickout {{clickoutClicks}}</div>
                 <button
                     data-testid="anchor"
-                    type="button" ref="anchor"
+                    type="button"
+                    ref="anchor"
                     @click="visible = true"
                 >
                     Click here
@@ -358,10 +382,47 @@ describe('Clickout event', () => {
     });
 });
 
+it('deletes the clickout event when component is unmounted', async () => {
+    const DeleteClickoutComponent = defineComponent({
+        components: {Dropdown},
+        data() {
+            return {
+                visible: false,
+                anchor: null as null | HTMLElement,
+            };
+        },
+        mounted() {
+            this.anchor = this.$refs.anchor as HTMLElement;
+        },
+        template: `
+            <div>
+                <div data-testid="clickout">clickout</div>
+                <button
+                    data-testid="anchor"
+                    type="button" ref="anchor"
+                    @click="console.log('here', visible = true)"
+                >
+                    Click here
+                </button>
+                <Dropdown :anchor="anchor" :visible="visible">
+                    <div data-testid="inner">Dropdown message</div>
+                </Dropdown>
+            </div>`,
+    });
+
+    const {unmount} = render(DeleteClickoutComponent);
+    await fireEvent.click(screen.getByTestId('anchor'));
+    await nextTick();
+    unmount();
+    await nextTick();
+    expect(docRemoveEventListenerMock).toHaveBeenCalledOnce();
+});
+
 describe('Animation property', () => {
     const transitionComponent = defineComponent({
         template: '<div data-testid="transition"></div>',
     });
+
     it('exists the transition component', async () => {
         const TestComponent = defineComponent({
             components: {Dropdown},
