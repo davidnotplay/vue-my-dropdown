@@ -18,7 +18,7 @@ const props = defineProps<ExampleProps>();
 <template>
     <div class="my-example-layout">
         <h2>{{ props.title }}</h2>
-        <section v-show="slots.description">
+        <section v-show="slots.description" class="my-paragraph">
             <slot name="description" />
         </section>
         <div>

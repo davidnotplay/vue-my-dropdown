@@ -77,9 +77,9 @@ function isClicked($eleClicked: HTMLElement, $container: HTMLElement | null): bo
     The function triggers the clickout event.
  */
 function clickoutEvent(evt: Event) {
-    const clickedIndAnchor = isClicked(evt.target as HTMLElement, props.anchor);
-    const clickedInDD = isClicked(evt.target as HTMLElement, $dropdown.value);
-    emit('clickout', evt, clickedInDD, clickedIndAnchor);
+    const clickedInAnchor = isClicked(evt.target as HTMLElement, props.anchor);
+    const clickedInDropdown = isClicked(evt.target as HTMLElement, $dropdown.value);
+    emit('clickout', evt, clickedInDropdown, clickedInAnchor);
 }
 
 /**
@@ -114,7 +114,6 @@ onMounted(() => {
     }
 });
 
-// @TODO test unmounted.
 onUnmounted(() => {
     if (props.visible) {
         close();
