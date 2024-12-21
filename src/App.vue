@@ -7,6 +7,7 @@ import ClickoutExample from '../public/examples/ClickoutExample.vue';
 import PositionExample from '../public/examples/PositionExample.vue';
 import AnchorExample from '../public/examples/AnchorExample.vue';
 import AnimationExample from '../public/examples/AnimationExample.vue';
+import CloseOpenExample from '../public/examples/CloseOpenExample.vue';
 
 const usageCode = ref<string>('');
 const basicExampleCode = ref<string>('');
@@ -14,6 +15,7 @@ const clickoutExampleCode = ref<string>('');
 const positionExampleCode = ref<string>('');
 const anchorExampleCode = ref<string>('');
 const animationExampleCode = ref<string>('');
+const closeOpenExampleCode = ref<string>('');
 
 onMounted(async () => {
     const htmls = [
@@ -40,6 +42,10 @@ onMounted(async () => {
         {
             url: 'examples/AnimationExample.vue',
             state: animationExampleCode,
+        },
+        {
+            url: 'examples/CloseOpenExample.vue',
+            state: closeOpenExampleCode,
         },
     ];
 
@@ -107,11 +113,54 @@ onMounted(async () => {
             <AnchorExample />
         </MyExample>
         <MyExample title="Position example" language="javascript" :code="positionExampleCode">
+            <template #description>
+                <p>
+                    The position property defines how the dropdown aligns relative to its anchor.
+                    You can specify the horizontal (e.g., 'left', 'center', 'right') and vertical
+                    (e.g., 'top', 'center', 'bottom') alignment.
+                </p>
+                <p>
+                    For example, the configuration <code>['right', 'top', 'left', 'top']</code> will
+                    place the dropdown to the right of the anchor and then adjust as needed for
+                    different screen sizes or anchor states.
+                </p>
+            </template>
             <PositionExample />
         </MyExample>
 
         <MyExample title="Animation example" language="javascript" :code="animationExampleCode">
+            <template #description>
+                <p>
+                    The animation property allows you to customize the opening and closing
+                    transitions of the dropdown. You can use predefined transitions such as 'fade',
+                    'slide', or create your own by defining CSS animations.
+                </p>
+                <p>
+                    For instance, the example here demonstrates a custom animation where the
+                    dropdown expands and collapses with a smooth transition.
+                </p>
+            </template>
             <AnimationExample />
+        </MyExample>
+
+        <MyExample
+            title="Close and open event example"
+            language="javascript"
+            :code="closeOpenExampleCode"
+        >
+            <CloseOpenExample />
+
+            <template #description>
+                <p>
+                    The dropdown emits <code>open</code> and <code>close</code> events whenever its
+                    visibility changes. These events can be used to track the dropdown's state or
+                    trigger additional actions in your application.
+                </p>
+                <p>
+                    For example, you can use the <code>open</code> event to load data dynamically or
+                    the <code>close</code> event to clean up resources.
+                </p>
+            </template>
         </MyExample>
     </div>
 </template>
