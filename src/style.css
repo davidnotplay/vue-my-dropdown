@@ -135,14 +135,30 @@ h2 {
     @apply bg-table-secondray-bg-color;
 }
 
-.my-paragraph p {
+p {
     @apply my-2;
 }
 
-.my-paragraph code {
+code {
     @apply font-mono text-purple-600 bg-purple-100 px-1 rounded;
 }
 
-.my-paragraph ul {
+ul {
     @apply list-disc list-inside my-4 ml-5;
+}
+
+.my-form {
+    @apply flex flex-wrap gap-2 mb-4;
+}
+
+.my-input {
+    @apply w-[calc(50%-.5rem)] mb-2;
+}
+
+.my-input > label {
+    @apply w-full;
+}
+
+.my-input > select {
+    @apply w-full mt-1 p-2 border border-table-border-color;
 }

@@ -6,12 +6,14 @@ import BasicExample from '../public/examples/BasicExample.vue';
 import ClickoutExample from '../public/examples/ClickoutExample.vue';
 import PositionExample from '../public/examples/PositionExample.vue';
 import AnchorExample from '../public/examples/AnchorExample.vue';
+import AnimationExample from '../public/examples/AnimationExample.vue';
 
 const usageCode = ref<string>('');
 const basicExampleCode = ref<string>('');
 const clickoutExampleCode = ref<string>('');
 const positionExampleCode = ref<string>('');
 const anchorExampleCode = ref<string>('');
+const animationExampleCode = ref<string>('');
 
 onMounted(async () => {
     const htmls = [
@@ -34,6 +36,10 @@ onMounted(async () => {
         {
             url: 'examples/AnchorExample.vue',
             state: anchorExampleCode,
+        },
+        {
+            url: 'examples/AnimationExample.vue',
+            state: animationExampleCode,
         },
     ];
 
@@ -76,23 +82,36 @@ onMounted(async () => {
             <ClickoutExample />
             <template #description>
                 <p>
-                    The clickout event is triggered when the user clicks out of the Dropdown or the
-                    button. You can use it, for example, to close the dropdown when clicks in of the
-                    document.
+                    The <code>clickout</code> always is triggered when the user clicks in anywhere
+                    on the screen. The function receives the event and two flags:
+                </p>
+                <ul>
+                    <li><code>clickedInDropdown</code></li>
+                    <li><code>clickedInAnchor</code></li>
+                </ul>
+                <p>These flags help you determine where the user clicked.</p>
+
+                <p>
+                    You can use this event to hide the dropdown when the user clicks outside of it
+                    or outside of the anchor.
                 </p>
             </template>
         </MyExample>
         <MyExample title="Anchor property" language="javascript" :code="anchorExampleCode">
             <template #description>
                 <p>
-                    The anchor property is used select the HTML element where the dropdown is
-                    anchored
+                    The anchor property is used to select the HTML element that the dropdown is
+                    anchored.
                 </p>
             </template>
             <AnchorExample />
         </MyExample>
         <MyExample title="Position example" language="javascript" :code="positionExampleCode">
             <PositionExample />
+        </MyExample>
+
+        <MyExample title="Animation example" language="javascript" :code="animationExampleCode">
+            <AnimationExample />
         </MyExample>
     </div>
 </template>

@@ -11,6 +11,10 @@ function change(ev: Event, index: number): void {
     position.value[index] = value as Horizontal | Vertical;
 }
 
+function clickout(_: Event, clickedInDropdown: boolean, clickedInAnchor: boolean): void {
+    visible.value = clickedInAnchor || clickedInDropdown;
+}
+
 const myBtnCornerClass = computed<Array<string>>(() => {
     return [
         `my-button-corner`,
@@ -87,15 +91,23 @@ const myDDCornerClass = computed<Array<string>>(() => {
     >
         Click me
     </button>
-    <MyDropdown
-        :anchor="anchor"
-        :visible="visible"
-        :position="position"
-        @clickout="visible = false"
-    >
-        <div :class="['my-dropdown', myDDCornerClass]">Click out to close the dropdown</div>
+    <MyDropdown :anchor="anchor" :visible="visible" :position="position" @clickout="clickout">
+        <div :class="['my-dropdown', myDDCornerClass]">
+            <p class="my-2">Dropdown in this position:</p>
+            <ul>
+                <li>
+                    <code>{{ position[0] }}</code>
+                </li>
+                <li>
+                    <code>{{ position[1] }}</code>
+                </li>
+                <li>
+                    <code>{{ position[2] }}</code>
+                </li>
+                <li>
+                    <code>{{ position[3] }}</code>
+                </li>
+            </ul>
+        </div>
     </MyDropdown>
-    <p>
-        Value of the position state: <code class="my-code">{{ position }}</code>
-    </p>
 </template>
