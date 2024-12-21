@@ -86,28 +86,39 @@ onMounted(async () => {
         </MyExample>
         <MyExample title="Clickout event" language="javascript" :code="clickoutExampleCode">
             <ClickoutExample />
+
             <template #description>
                 <p>
-                    The <code>clickout</code> always is triggered when the user clicks in anywhere
-                    on the screen. The function receives the event and two flags:
+                    The <code>clickout</code> event is triggered whenever the user clicks anywhere
+                    on the screen. This event provides two flags:
                 </p>
                 <ul>
-                    <li><code>clickedInDropdown</code></li>
-                    <li><code>clickedInAnchor</code></li>
+                    <li>
+                        <code>clickedInDropdown</code>: Indicates if the user clicked inside the
+                        dropdown.
+                    </li>
+                    <li>
+                        <code>clickedInAnchor</code>: Indicates if the user clicked on the anchor
+                        element.
+                    </li>
                 </ul>
-                <p>These flags help you determine where the user clicked.</p>
-
                 <p>
-                    You can use this event to hide the dropdown when the user clicks outside of it
-                    or outside of the anchor.
+                    These flags allow you to precisely determine the click location and handle
+                    visibility logic. For example, you can use this event to hide the dropdown when
+                    the user clicks outside both the dropdown and the anchor.
                 </p>
             </template>
         </MyExample>
-        <MyExample title="Anchor property" language="javascript" :code="anchorExampleCode">
+        <MyExample title="Anchor example" language="javascript" :code="anchorExampleCode">
             <template #description>
                 <p>
-                    The anchor property is used to select the HTML element that the dropdown is
-                    anchored.
+                    The <code>anchor</code> property specifies the HTML element to which the
+                    dropdown is anchored. This allows the dropdown to dynamically position itself
+                    relative to the anchor element.
+                </p>
+                <p>
+                    For instance, you can anchor the dropdown to a button or any other element to
+                    maintain consistent positioning, even when the element moves or resizes.
                 </p>
             </template>
             <AnchorExample />
