@@ -70,15 +70,97 @@ onMounted(async () => {
         </div>
     </div>
     <div class="my-content">
-        <h1>Requirements</h1>
-        <p>
-            <code> vuejs >= 3.3 </code>
-        </p>
-        <h1>Usage</h1>
-        You use node and npm to install vue-my-dropdown lib.
-        <MyEditor language="shell" code="npm install --save vue-my-dropdown" />
-        Now you can import and use vue-my-dropdown in your project.
-        <MyEditor :code="usageCode" language="javascript" />
+        <section class="pb-8">
+            <h1>Requirements</h1>
+            <p>
+                <code>vuejs &gt;= 3.3</code>
+            </p>
+        </section>
+        <section class="pb-8">
+            <h1>Usage</h1>
+            <p>You use node and npm to install vue-my-dropdown lib.</p>
+            <MyEditor language="shell" code="npm install --save vue-my-dropdown" />
+            <p>Now you can import and use vue-my-dropdown in your project.</p>
+            <MyEditor :code="usageCode" language="javascript" />
+        </section>
+
+        <section class="pb-8">
+            <h1>Properties and events</h1>
+            <table class="min-w-full table-auto border-collapse border border-table-border-color">
+                <thead class="border-b border-table-border-color bg-gray-100">
+                    <tr>
+                        <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                            Property/Event
+                        </th>
+                        <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                            Possible Values
+                        </th>
+                        <th class="px-4 py-2 text-left font-semibold text-gray-700">Description</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-300">
+                    <tr>
+                        <td class="px-4 py-2 text-gray-600"><code>visible</code></td>
+                        <td class="px-4 py-2 text-gray-600">true / false</td>
+                        <td class="px-4 py-2 text-gray-600">
+                            Controls the visibility of the dropdown. Use it to programmatically show
+                            or hide the dropdown.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 text-gray-600"><code>anchor</code></td>
+                        <td class="px-4 py-2 text-gray-600">Any HTML element</td>
+                        <td class="px-4 py-2 text-gray-600">
+                            Specifies the element to which the dropdown is anchored. Ensures
+                            consistent positioning relative to the anchor, even if it moves or
+                            resizes.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 text-gray-600"><code>position</code></td>
+                        <td class="px-4 py-2 text-gray-600">
+                            <code>['left', 'top', 'right', 'bottom']</code>
+                        </td>
+                        <td class="px-4 py-2 text-gray-600">
+                            Defines how the dropdown aligns relative to its anchor. For example,
+                            <code>['right', 'top']</code> places the dropdown to the right of the
+                            anchor and aligns it at the top.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 text-gray-600"><code>animation</code></td>
+                        <td class="px-4 py-2 text-gray-600">
+                            <code>'fade'</code>, <code>'slide'</code>, custom CSS animations
+                        </td>
+                        <td class="px-4 py-2 text-gray-600">
+                            Specifies the animation used for opening and closing the dropdown.
+                            Default animations include fade and slide transitions, or you can define
+                            custom ones.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 text-gray-600"><code>clickout</code></td>
+                        <td class="px-4 py-2 text-gray-600">Event</td>
+                        <td class="px-4 py-2 text-gray-600">
+                            Triggers when the user clicks outside the dropdown or its anchor.
+                            Provides two flags: <code>clickedInDropdown</code> and
+                            <code>clickedInAnchor</code> to manage visibility logic.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 text-gray-600">
+                            <code>open</code> / <code>close</code>
+                        </td>
+                        <td class="px-4 py-2 text-gray-600">Event</td>
+                        <td class="px-4 py-2 text-gray-600">
+                            Fires when the dropdown opens or closes, respectively. Use these events
+                            for custom logic, such as fetching data on open or cleaning up resources
+                            on close.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
         <h1>Examples</h1>
         <MyExample title="Basic example" language="javascript" :code="basicExampleCode">

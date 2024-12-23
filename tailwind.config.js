@@ -10,7 +10,7 @@ export default {
                 primary: 'var(--color-primary)',
                 'text-color': 'var(--color-text-color)',
                 'primary-hover': 'var(--color-primary-hover)',
-                'table-border-color': colors.gray[600],
+                'table-border-color': colors.gray[300],
                 'table-secondray-bg-color': colors.gray[300],
             },
         },

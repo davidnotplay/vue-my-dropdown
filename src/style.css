@@ -65,7 +65,7 @@ h2 {
 }
 
 .my-content {
-    @apply relative top-[40vh] bg-white p-4;
+    @apply relative top-[100vh] bg-white p-4;
 }
 
 .my-prism {
@@ -74,7 +74,7 @@ h2 {
 }
 
 .my-example-layout {
-    @apply my-10;
+    @apply mb-10;
 }
 
 .my-example-layout > section {
