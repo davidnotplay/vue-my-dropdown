@@ -1,0 +1,7 @@
+src
+docs
+index.html
+postcss.config.js
+public
+tailwind.*
+vite*

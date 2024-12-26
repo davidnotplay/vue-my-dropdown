@@ -5,7 +5,7 @@ import {createStyles} from './helpers.ts';
 
 export type MyDropdownProps = {
     anchor: HTMLElement | null;
-    visible?: boolean;
+    visible: boolean;
     position?: Position;
     animation?: Animation;
 };
@@ -16,7 +16,6 @@ export type Horizontal = 'left' | 'center' | 'right';
 export type Animation = string;
 
 const props = withDefaults(defineProps<MyDropdownProps>(), {
-    visible: false,
     position: () => ['right', 'top', 'left', 'top'],
     animation: 'slide',
 });
