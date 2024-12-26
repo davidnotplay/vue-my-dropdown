@@ -100,16 +100,7 @@ onUnmounted(() => {
             </div>
         </nav>
         <img src="/images/vue.svg" alt="vue logo" class="size-2/4" />
-        <p class="text-center">Simple and powerfull dropdown for Vuejs</p>
-        <div class="mt-8">
-            <a
-                href="https://github.com/davidnotplay/vue-my-dropdown"
-                class="my-button"
-                target="_blank"
-            >
-                Github
-            </a>
-        </div>
+        <p class="text-center">A powerful and customizable dropdown for Vue.js</p>
         <footer
             class="fixed left-0 top-[calc(100vh-48px)] flex h-[48px] w-full bg-primary px-2 text-white"
         >
@@ -157,6 +148,7 @@ onUnmounted(() => {
                 </ul>
             </section>
             <section class="pb-8">
+                <h1 id="usage">Usage</h1>
                 <p>
                     Follow these steps to install and start using the
                     <code>vue-my-dropdown</code> library in your project:

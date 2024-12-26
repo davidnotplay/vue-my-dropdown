@@ -69,7 +69,7 @@ h2 {
 }
 
 .my-content {
-    @apply relative top-[100vh] bg-white p-4 grid grid-cols-[80%_20%] gap-4;
+    @apply absolute top-[100vh] bg-white p-4 grid grid-cols-[80%_20%] gap-4;
 }
 
 .my-prism {
