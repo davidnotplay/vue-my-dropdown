@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type {Slot} from 'vue';
-import {defineSlots} from 'vue';
+import {computed, defineSlots} from 'vue';
 import {Languages} from './MyEditor.vue';
 import MyEditor from './MyEditor.vue';
 
@@ -13,11 +13,15 @@ type ExampleProps = {
 const slots = defineSlots<{default: Slot; description: Slot}>();
 
 const props = defineProps<ExampleProps>();
+
+const slug = computed<string>(() => {
+    return props.title.replace(/\s+/g, '-').toLowerCase();
+});
 </script>
 
 <template>
     <div class="my-example-layout">
-        <h2>{{ props.title }}</h2>
+        <h2 :id="slug">{{ props.title }}</h2>
         <section v-show="slots.description" class="my-paragraph">
             <slot name="description" />
         </section>

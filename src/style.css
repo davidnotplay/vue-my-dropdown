@@ -6,12 +6,16 @@
 
 :root {
     --color-text-color: #444;
-    --color-primary: #3490dc;
-    --color-primary-hover: #2779bd;
+    --color-primary: #42b882;
+    --color-primary-hover: #244e58;
 }
 
 html {
     @apply text-text-color;
+}
+
+#app {
+    @apply mb-[48px] overflow-hidden;
 }
 
 h1 {
@@ -65,7 +69,7 @@ h2 {
 }
 
 .my-content {
-    @apply relative top-[100vh] bg-white p-4;
+    @apply relative top-[100vh] bg-white p-4 grid grid-cols-[80%_20%] gap-4;
 }
 
 .my-prism {
@@ -161,4 +165,23 @@ ul {
 
 .my-input > select {
     @apply w-full mt-1 p-2 border border-table-border-color;
+}
+
+.my-menu {
+    @apply border-l-[1px] border-table-border-color;
+}
+
+.my-menu ul {
+    @apply list-none p-0;
+}
+
+.my-menu-link {
+    display: block;
+    padding: 0.5rem;
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.my-menu-link:hover {
+    color: var(--color-primary-hover);
 }
