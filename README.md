@@ -2,7 +2,7 @@
 Handle dropdown menu easily with this Vuejs component.
 
 ## Requisites
-Vuejs >= 3.3.x
+vue.js >= 3.3.x
 
 ## Documentation
 [Official documentation](https://davidnotplay.github.io/vue-my-dropdown/)
