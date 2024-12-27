@@ -1,0 +1,187 @@
+@import 'prismjs/themes/prism.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --color-text-color: #444;
+    --color-primary: #42b882;
+    --color-primary-hover: #244e58;
+}
+
+html {
+    @apply text-text-color;
+}
+
+#app {
+    @apply mb-[48px] overflow-hidden;
+}
+
+h1 {
+    @apply text-4xl font-bold text-left text-text-color mb-4;
+}
+
+h2 {
+    @apply text-2xl font-semibold text-left text-text-color mb-3;
+}
+
+.my-main-cover {
+    @apply fixed flex flex-col items-center
+           justify-center w-screen h-screen flex-nowrap bg-slate-300;
+}
+
+.my-button {
+    @apply bg-primary hover:bg-primary-hover text-white font-bold py-2 px-4 rounded;
+}
+
+.my-button-corner {
+    @apply relative;
+}
+
+.my-button-corner::after {
+    content: '';
+    @apply inline-block size-[.5rem] bg-red-900 absolute rounded;
+}
+
+.my-button-corner.my-button-corner-h-left::after {
+    @apply left-0;
+}
+
+.my-button-corner.my-button-corner-h-center::after {
+    @apply left-2/4;
+}
+
+.my-button-corner.my-button-corner-h-right::after {
+    @apply right-0;
+}
+
+.my-button-corner.my-button-corner-v-top::after {
+    @apply top-0;
+}
+
+.my-button-corner.my-button-corner-v-center::after {
+    @apply top-2/4;
+}
+
+.my-button-corner.my-button-corner-v-bottom::after {
+    @apply bottom-0;
+}
+
+.my-content {
+    @apply absolute top-[100vh] bg-white p-4 grid grid-cols-[80%_20%] gap-4;
+}
+
+.my-prism {
+    @apply border bg-gray-300;
+    @apply m-0 !important;
+}
+
+.my-example-layout {
+    @apply mb-10;
+}
+
+.my-example-layout > section {
+    @apply mt-2 mb-6;
+}
+
+.my-example-layout > div {
+    @apply grid grid-cols-2 gap-4;
+}
+
+.my-dropdown {
+    @apply bg-white shadow-lg rounded-md p-4 border border-table-border-color;
+}
+
+.my-dd-corner {
+    @apply relative;
+}
+
+.my-dd-corner::after {
+    content: '';
+    @apply inline-block size-[.5rem] bg-red-900 absolute rounded;
+}
+
+.my-dd-corner.my-dd-corner-h-left::after {
+    @apply left-0;
+}
+
+.my-dd-corner.my-dd-corner-h-center::after {
+    @apply left-2/4;
+}
+
+.my-dd-corner.my-dd-corner-h-right::after {
+    @apply right-0;
+}
+
+.my-dd-corner.my-dd-corner-v-top::after {
+    @apply top-0;
+}
+
+.my-dd-corner.my-dd-corner-v-center::after {
+    @apply top-2/4;
+}
+
+.my-dd-corner.my-dd-corner-v-bottom::after {
+    @apply bottom-0;
+}
+
+.my-anchors {
+    @apply grid grid-cols-4 gap-2 mb-[7rem] border-collapse;
+}
+
+.my-anchors > div {
+    @apply text-center border border-table-border-color p-1 border-collapse;
+    cursor: pointer;
+}
+
+.my-anchors > div.my-active {
+    @apply bg-table-secondray-bg-color;
+}
+
+p {
+    @apply my-2;
+}
+
+code {
+    @apply font-mono text-purple-600 bg-purple-100 px-1 rounded;
+}
+
+ul {
+    @apply list-disc list-inside my-4 ml-5;
+}
+
+.my-form {
+    @apply flex flex-wrap gap-2 mb-4;
+}
+
+.my-input {
+    @apply w-[calc(50%-.5rem)] mb-2;
+}
+
+.my-input > label {
+    @apply w-full;
+}
+
+.my-input > select {
+    @apply w-full mt-1 p-2 border border-table-border-color;
+}
+
+.my-menu {
+    @apply border-l-[1px] border-table-border-color;
+}
+
+.my-menu ul {
+    @apply list-none p-0;
+}
+
+.my-menu-link {
+    display: block;
+    padding: 0.5rem;
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.my-menu-link:hover {
+    color: var(--color-primary-hover);
+}

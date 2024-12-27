@@ -1,0 +1,26 @@
+{
+    "root": true,
+    "parser": "vue-eslint-parser",
+    "parserOptions": {
+        "parser": "@typescript-eslint/parser"
+    },
+    "extends": [
+        "plugin:vue/vue3-recommended",
+        "plugin:tailwindcss/recommended",
+        "eslint:recommended",
+        "@vue/typescript/recommended",
+        "prettier"
+    ],
+    "plugins": ["@typescript-eslint", "prettier", "tailwindcss"],
+    "rules": {
+        "no-console": [
+            "error",
+            {
+                "allow": ["warn", "error"]
+            }
+        ],
+        "prettier/prettier": "error",
+        "tailwindcss/no-custom-classname": "off",
+        "vue/no-v-html": "off"
+    }
+}
