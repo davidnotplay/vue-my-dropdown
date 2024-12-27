@@ -20,9 +20,9 @@ function z(r, n, t) {
     const e = {top: 0, left: 0},
         c = u(r.getBoundingClientRect()),
         d = r.offsetParent,
-        l = D(n),
-        a = u(d.getBoundingClientRect());
-    (e.left = c.left - a.left), (e.top = c.top - a.top);
+        a = D(n),
+        l = u(d.getBoundingClientRect());
+    (e.left = c.left - l.left), (e.top = c.top - l.top);
     const s = {h: 'left', v: 'top'};
     switch (t[0].toLowerCase()) {
         case 'right':
@@ -42,18 +42,18 @@ function z(r, n, t) {
     }
     switch (t[2].toLowerCase()) {
         case 'center':
-            (e.left -= l.width / 2), (s.h = 'center');
+            (e.left -= a.width / 2), (s.h = 'center');
             break;
         case 'right':
-            (e.left -= l.width), (s.h = 'right');
+            (e.left -= a.width), (s.h = 'right');
             break;
     }
     switch (t[3].toLowerCase()) {
         case 'center':
-            (e.top -= l.height / 2), (s.v = 'center');
+            (e.top -= a.height / 2), (s.v = 'center');
             break;
         case 'bottom':
-            (e.top -= l.height), (s.v = 'bottom');
+            (e.top -= a.height), (s.v = 'bottom');
             break;
     }
     return {
@@ -101,13 +101,13 @@ const x = '0.3s',
         emits: ['clickout', 'open', 'close'],
         setup(r, {emit: n}) {
             b((o) => ({
-                cedcd6a4: x,
+                a3a04180: x,
             }));
             const t = r,
                 e = m(null),
                 c = n,
                 d = m({});
-            function l() {
+            function a() {
                 if (t.anchor !== null && e.value !== null) {
                     if (t.anchor instanceof HTMLElement) {
                         d.value = z(t.anchor, e.value, t.position);
@@ -116,9 +116,9 @@ const x = '0.3s',
                     console.warn('Anchor property is not HTML element.');
                 }
             }
-            function a() {
-                l(),
-                    window.addEventListener('resize', l),
+            function l() {
+                a(),
+                    window.addEventListener('resize', a),
                     w(() => document.addEventListener('click', h));
             }
             function s(o, i) {
@@ -130,7 +130,7 @@ const x = '0.3s',
                 c('clickout', o, f, i);
             }
             function p() {
-                window.removeEventListener('resize', l), document.removeEventListener('click', h);
+                window.removeEventListener('resize', a), document.removeEventListener('click', h);
             }
             return (
                 g(
@@ -138,7 +138,7 @@ const x = '0.3s',
                     async (o, i) => {
                         if (o != i) {
                             if (o) {
-                                a();
+                                l();
                                 return;
                             }
                             p();
@@ -146,7 +146,7 @@ const x = '0.3s',
                     }
                 ),
                 k(() => {
-                    t.visible && w(a);
+                    t.visible && w(l);
                 }),
                 y(() => {
                     t.visible && p();

@@ -8,6 +8,9 @@ vue.js >= 3.3.x
 [Official documentation](https://davidnotplay.github.io/vue-my-dropdown/)
 
 ## Changelog
+### 3.0.1
+- Fix package vulnerabilities.
+
 ### 3.0.0
 - Refactor component to adapt it for Vue 3.3.x
 

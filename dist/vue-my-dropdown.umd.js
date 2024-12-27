@@ -7,28 +7,28 @@
             e((d['vue-my-dropdown'] = {}), d.Vue));
 })(this, function (d, e) {
     'use strict';
-    function b(c, o, n) {
+    function b(s, o, n) {
         const t = {top: 0, left: 0},
-            s = h(c.getBoundingClientRect()),
-            p = c.offsetParent,
+            c = h(s.getBoundingClientRect()),
+            p = s.offsetParent,
             a = g(o),
             f = h(p.getBoundingClientRect());
-        (t.left = s.left - f.left), (t.top = s.top - f.top);
+        (t.left = c.left - f.left), (t.top = c.top - f.top);
         const l = {h: 'left', v: 'top'};
         switch (n[0].toLowerCase()) {
             case 'right':
-                t.left += s.width;
+                t.left += c.width;
                 break;
             case 'center':
-                t.left += s.width / 2;
+                t.left += c.width / 2;
                 break;
         }
         switch (n[1].toLowerCase()) {
             case 'center':
-                t.top += s.height / 2;
+                t.top += c.height / 2;
                 break;
             case 'bottom':
-                t.top += s.height;
+                t.top += c.height;
                 break;
         }
         switch (n[2].toLowerCase()) {
@@ -54,23 +54,23 @@
             transformOrigin: `${l.h} ${l.v}`,
         };
     }
-    function g(c) {
+    function g(s) {
         var t;
-        const o = c.cloneNode(!0);
+        const o = s.cloneNode(!0);
         (o.style.display = 'block'),
             (o.style.visibility = 'hidden'),
             (o.style.position = 'absolute'),
-            (t = c.parentNode) == null || t.insertBefore(o, c),
+            (t = s.parentNode) == null || t.insertBefore(o, s),
             o.offsetWidth,
             o.offsetHeight;
         const n = h(o.getBoundingClientRect());
         return o.remove(), n;
     }
-    function h(c) {
+    function h(s) {
         const o = {width: 0, height: 0, top: 0, left: 0};
         return (
             Object.keys(o).forEach((n) => {
-                o[n] = c[n];
+                o[n] = s[n];
             }),
             o
         );
@@ -85,11 +85,11 @@
                 animation: {default: 'slide'},
             },
             emits: ['clickout', 'open', 'close'],
-            setup(c, {emit: o}) {
-                e.useCssVars((i) => ({cedcd6a4: k}));
-                const n = c,
+            setup(s, {emit: o}) {
+                e.useCssVars((i) => ({a3a04180: k}));
+                const n = s,
                     t = e.ref(null),
-                    s = o,
+                    c = o,
                     p = e.ref({});
                 function a() {
                     if (n.anchor !== null && t.value !== null) {
@@ -111,7 +111,7 @@
                 function m(i) {
                     const r = l(i.target, n.anchor),
                         u = l(i.target, t.value);
-                    s('clickout', i, u, r);
+                    c('clickout', i, u, r);
                 }
                 function w() {
                     window.removeEventListener('resize', a),
@@ -142,8 +142,8 @@
                             e.Transition,
                             {
                                 name: i.animation,
-                                onAfterEnter: r[0] || (r[0] = (u) => s('open')),
-                                onAfterLeave: r[1] || (r[1] = (u) => s('close')),
+                                onAfterEnter: r[0] || (r[0] = (u) => c('open')),
+                                onAfterLeave: r[1] || (r[1] = (u) => c('close')),
                             },
                             {
                                 default: e.withCtx(() => [

@@ -1,8 +1,8 @@
 .slide-enter-active,
 .slide-leave-active {
     transition:
-        transform var(--cedcd6a4) ease,
-        opacity var(--cedcd6a4) ease;
+        transform var(--a3a04180) ease,
+        opacity var(--a3a04180) ease;
 }
 .slide-enter-from,
 .slide-leave-to {
@@ -17,8 +17,8 @@
 .slide-x-enter-active,
 .slide-x-leave-active {
     transition:
-        transform var(--cedcd6a4) ease,
-        opacity var(--cedcd6a4) ease;
+        transform var(--a3a04180) ease,
+        opacity var(--a3a04180) ease;
 }
 .slide-x-enter-from,
 .slide-x-leave-to {
@@ -33,8 +33,8 @@
 .slide-y-enter-active,
 .slide-y-leave-active {
     transition:
-        transform var(--cedcd6a4) ease,
-        opacity var(--cedcd6a4) ease;
+        transform var(--a3a04180) ease,
+        opacity var(--a3a04180) ease;
 }
 .slide-y-enter-from,
 .slide-y-leave-to {
@@ -48,7 +48,7 @@
 }
 .fade-enter-active,
 .fade-leave-active {
-    transition: opacity var(--cedcd6a4) ease;
+    transition: opacity var(--a3a04180) ease;
 }
 .fade-enter-from,
 .fade-leave-to {
