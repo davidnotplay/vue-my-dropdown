@@ -1,6 +1,6 @@
 {
     "name": "vue-my-dropdown",
-    "version": "3.0.0-alpha1",
+    "version": "3.0.0",
     "main": "./dist/vue-my-dropdown.es.js",
     "module": "./dist/vue-my-dropdown.umd.js",
     "types": "dist/vue-my-dropdown.d.ts",
