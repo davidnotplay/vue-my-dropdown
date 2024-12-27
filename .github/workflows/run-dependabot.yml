@@ -1,4 +1,4 @@
-name: Dependabot
+name: Run audition
 
 on:
   pull_request:

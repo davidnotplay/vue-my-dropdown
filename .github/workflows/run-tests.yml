@@ -1,4 +1,4 @@
-name: Test
+name: Run tests
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
         - main
 
 jobs:
-  review_dependencies:
+  test:
     runs-on: ubuntu-latest
 
     steps:
